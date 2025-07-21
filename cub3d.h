@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 05:53:14 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/21 08:31:51 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/07/21 08:48:20 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include "minilibx-linux/mlx.h"
 # include <string.h>
 # include <unistd.h>
+# include "gnl/get_next_line.h"
 
 // parsing
 int     parser(int ac, char **av);
