@@ -1,37 +1,45 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   parsing.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2025/07/21 05:46:51 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/21 06:26:16 by aylaaouf         ###   ########.fr       */
+/*   Created: 2025/07/21 06:21:11 by aylaaouf          #+#    #+#             */
+/*   Updated: 2025/07/21 08:46:19 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-int main(int ac, char **av)
+int has_cub_extension(char *path)
 {
-    void    *mlx;
-    void    *win;
+    char    *extension;
 
-    if (parser(ac, av))
-        return (1);
-    mlx = mlx_init();
-    if (!mlx)
+    extension = ft_strrchr(path, '.');
+    if (extension == NULL)
     {
-        printf("Failed to initialize mlx\n");
+        ft_putendl_fd("Error: Not a valid path", 2);
         return (1);
     }
-    win = mlx_new_window(mlx, 1920, 1080, "cub3D");
-    if (!win)
+    if (strcmp(extension, ".cub") == 0)
+        return (0);
+    else
     {
-        printf("Failed to create window\n");
+        ft_putendl_fd("Error: Not a valid extension", 2);
         return (1);
     }
-    (void)win;
-    mlx_loop(mlx);
+}
+
+int parser(int ac, char **av)
+{
+    if (ac != 2)
+    {
+        ft_putendl_fd("Error: Usage: ./cub3d <map.cub>", 2);
+        return (1);
+    }
+    if (has_cub_extension(av[1]))
+        return (1);
+    read_map(av[1]);
     return (0);
 }

@@ -1,6 +1,6 @@
 NAME := cub3d
 
-SRC:= main.c
+SRC:= main.c parsing.c utils.c
 
 CC := cc
 
