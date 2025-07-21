@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 06:21:11 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/21 09:53:59 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/07/21 09:57:37 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,13 +56,16 @@ int count_map_lines(char *path)
 
 char    **read_map(char *path)
 {
-    int fd;
+    int (fd), (i), total_lines;
     char *line;
     char **map;
-    int total_lines;
-    int i;
 
     fd = open(path, O_RDONLY);
+    if (fd < 0)
+    {
+        perror("open");
+        return (NULL);
+    }
     total_lines = count_map_lines(path);
     map = malloc((total_lines + 1) * sizeof(char *));
     if (total_lines <= 0)
