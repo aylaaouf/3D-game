@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/13 02:46:59 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/21 08:44:32 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/07/21 09:35:19 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static char	*read_buffer(int fd, char *buffer)
 	if (!temp_buffer)
 		return (free(buffer), NULL);
 	bytes_read = 1;
-	while (!ft_strchr(buffer, '\n') && bytes_read != 0)
+	while (!ft_strchr_gnl(buffer, '\n') && bytes_read != 0)
 	{
 		bytes_read = read(fd, temp_buffer, BUFFER_SIZE);
 		if (bytes_read == -1)
@@ -30,7 +30,7 @@ static char	*read_buffer(int fd, char *buffer)
 			return (NULL);
 		}
 		temp_buffer[bytes_read] = '\0';
-		buffer = ft_strjoin(buffer, temp_buffer);
+		buffer = ft_strjoin_gnl(buffer, temp_buffer);
 		if (!buffer)
 		{
 			free(temp_buffer);
@@ -50,11 +50,11 @@ static char	*get_line(char *buffer)
 
 	if (!buffer || !*buffer)
 		return (NULL);
-	new_line_pos = ft_strchr(buffer, '\n');
+	new_line_pos = ft_strchr_gnl(buffer, '\n');
 	if (new_line_pos)
 		len = new_line_pos - buffer + 1;
 	else
-		len = ft_strlen(buffer);
+		len = ft_strlen_gnl(buffer);
 	line = malloc(sizeof(char) * (len + 1));
 	if (!line)
 		return (free(line), NULL);
@@ -73,10 +73,10 @@ static char	*update_buffer(char *buffer)
 	char	*new_buffer;
 	char	*new_line_pos;
 
-	new_line_pos = ft_strchr(buffer, '\n');
+	new_line_pos = ft_strchr_gnl(buffer, '\n');
 	if (!new_line_pos)
 		return (NULL);
-	new_buffer = ft_strdup(new_line_pos + 1);
+	new_buffer = ft_strdup_gnl(new_line_pos + 1);
 	if (!new_buffer)
 		return (NULL);
 	free(buffer);

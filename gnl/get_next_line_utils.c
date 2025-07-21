@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/12/12 19:23:40 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/21 08:45:19 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/07/21 09:34:32 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	helper_a(int fd, char *buffer)
 	return (1);
 }
 
-char	*ft_strchr(char *s, int c)
+char	*ft_strchr_gnl(char *s, int c)
 {
 	unsigned int	i;
 
@@ -44,13 +44,13 @@ char	*ft_strchr(char *s, int c)
 	return (NULL);
 }
 
-char	*ft_strdup(const char *s1)
+char	*ft_strdup_gnl(const char *s1)
 {
 	char	*ptr;
 	int		len;
 	int		i;
 
-	len = ft_strlen(s1);
+	len = ft_strlen_gnl(s1);
 	ptr = (char *)malloc(len + 1);
 	if (!ptr)
 		return (NULL);
@@ -64,17 +64,17 @@ char	*ft_strdup(const char *s1)
 	return (ptr);
 }
 
-char	*ft_strjoin(char const *s1, char const *s2)
+char	*ft_strjoin_gnl(char const *s1, char const *s2)
 {
 	char	*result;
 	int		i;
 	int		j;
 
 	if (!s1)
-		return (ft_strdup(s2));
+		return (ft_strdup_gnl(s2));
 	else if (!s2)
-		return (ft_strdup(s1));
-	result = malloc((ft_strlen(s1) + ft_strlen(s2) + 1));
+		return (ft_strdup_gnl(s1));
+	result = malloc((ft_strlen_gnl(s1) + ft_strlen_gnl(s2) + 1));
 	if (!result)
 		return (NULL);
 	i = 0;
@@ -89,7 +89,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 	return (result);
 }
 
-size_t	ft_strlen(const char *s)
+size_t	ft_strlen_gnl(const char *s)
 {
 	size_t	i;
 
