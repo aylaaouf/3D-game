@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 06:21:11 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/21 08:46:19 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/07/21 09:53:59 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,59 @@ int has_cub_extension(char *path)
     }
 }
 
+int count_map_lines(char *path)
+{
+    int fd;
+    int counter;
+    char *line;
+
+    fd = open(path, O_RDONLY);
+    counter = 0;
+    if (fd < 0)
+    {
+        perror("open");
+        return (1);
+    }
+    while ((line = get_next_line(fd)))
+    {
+        if (line[0] == '1' || line[0] == ' ')
+            counter++;
+        free(line);
+    }
+    close(fd);
+    return (counter);
+}
+
+char    **read_map(char *path)
+{
+    int fd;
+    char *line;
+    char **map;
+    int total_lines;
+    int i;
+
+    fd = open(path, O_RDONLY);
+    total_lines = count_map_lines(path);
+    map = malloc((total_lines + 1) * sizeof(char *));
+    if (total_lines <= 0)
+        return (NULL);
+    i = 0;
+    while ((line = get_next_line(fd)))
+    {
+        if (line[0] == '1' || line[0] == ' ')
+            map[i++] = line;
+        else
+            free(line);
+    }
+    map[i] = NULL;
+    close(fd);
+    return (map);
+}
+
 int parser(int ac, char **av)
 {
+    char **map;
+
     if (ac != 2)
     {
         ft_putendl_fd("Error: Usage: ./cub3d <map.cub>", 2);
@@ -40,6 +91,8 @@ int parser(int ac, char **av)
     }
     if (has_cub_extension(av[1]))
         return (1);
-    read_map(av[1]);
+    map = read_map(av[1]);
+    // for (int i = 0; map[i]; i++)
+	// 	printf("%s", map[i]);
     return (0);
 }
