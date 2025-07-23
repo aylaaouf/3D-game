@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 05:53:14 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/21 09:33:13 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/07/23 10:20:56 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,23 @@
 # include "gnl/get_next_line.h"
 # include <fcntl.h>
 
+typedef struct s_color {
+    int r;
+    int g;
+    int b;
+}              t_color;
+
+typedef struct s_config {
+    char *no;
+    char *so;
+    char *we;
+    char *ea;
+    char *f;
+    char *c;
+    t_color floor;
+    t_color ceil;
+}              t_config;
+
 // parsing
 int     parser(int ac, char **av);
 int     has_cub_extension(char *path);
@@ -29,5 +46,12 @@ char	*ft_strrchr(const char *s, int c);
 int     ft_strncmp(const char *s1, const char *s2, size_t n);
 size_t  ft_strlen(const char *s);
 void	ft_putendl_fd(char *s, int fd);
+void	*ft_memset(void *b, int c, size_t len);
+char	*ft_strdup(const char *s1);
+void	*ft_memcpy(void *dst, const void *src, size_t n);
+size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
+char	**ft_split(char const *s, char c);
+int	    ft_atoi(const char *str);
+void	free_2d(char **args);
 
 #endif
