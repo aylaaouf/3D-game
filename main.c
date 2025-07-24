@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 05:46:51 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/21 06:26:16 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/07/25 00:41:37 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,24 +14,22 @@
 
 int main(int ac, char **av)
 {
-    void    *mlx;
-    void    *win;
+    t_game *game;
 
-    if (parser(ac, av))
+    game = malloc(sizeof(t_game));
+    if (!game)
         return (1);
-    mlx = mlx_init();
-    if (!mlx)
-    {
-        printf("Failed to initialize mlx\n");
+    ft_memset(game, 0, sizeof(t_game));
+    game->map = malloc(sizeof(t_map));
+    game->config = malloc(sizeof(t_config));
+    if (!game->map || !game->config)
         return (1);
-    }
-    win = mlx_new_window(mlx, 1920, 1080, "cub3D");
-    if (!win)
-    {
-        printf("Failed to create window\n");
+    ft_memset(game->map, 0, sizeof(t_map));
+    ft_memset(game->config, 0, sizeof(t_config));
+    if (parser(ac, av, game))
         return (1);
-    }
-    (void)win;
-    mlx_loop(mlx);
+    game->mlx = mlx_init();
+    game->win = mlx_new_window(game->mlx, 1920, 1080, "cub3D");
+    mlx_loop(game->mlx);
     return (0);
 }

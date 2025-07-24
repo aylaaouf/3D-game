@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 05:53:14 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/23 10:20:56 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/07/25 00:39:55 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,13 @@
 # include <unistd.h>
 # include "gnl/get_next_line.h"
 # include <fcntl.h>
+
+typedef struct s_map
+{
+    char **map;
+    int height;
+    int width;
+}              t_map;
 
 typedef struct s_color {
     int r;
@@ -37,8 +44,27 @@ typedef struct s_config {
     t_color ceil;
 }              t_config;
 
+typedef struct s_player
+{
+    double x;
+    double y;
+    double dir_x;
+    double dir_y;
+    double plane_x;
+    double plane_y;
+} t_player;
+
+typedef struct s_game
+{
+    t_map     *map;
+    t_config  *config;
+    t_player  player;
+    void      *mlx;
+    void      *win;
+} t_game;
+
 // parsing
-int     parser(int ac, char **av);
+int     parser(int ac, char **av, t_game *game);
 int     has_cub_extension(char *path);
 
 // utils

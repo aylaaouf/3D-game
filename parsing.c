@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 06:21:11 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/23 10:34:39 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/07/25 00:39:05 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,6 +67,11 @@ char    **read_map(char *path)
         return (NULL);
     }
     total_lines = count_map_lines(path);
+    if (total_lines <= 0)
+    {
+        close(fd);
+        return (NULL);
+    }
     map = malloc((total_lines + 1) * sizeof(char *));
     if (!map)
     {
@@ -93,7 +98,7 @@ char    **read_map(char *path)
     return (map);
 }
 
-void    parse_identifiers(int fd, t_config *cfg)
+void    parse_identifiers(int fd, t_game *game)
 {
     char *line;
     char *newline;
@@ -114,17 +119,17 @@ void    parse_identifiers(int fd, t_config *cfg)
         if (newline)
             *newline = '\0';
         if (!ft_strncmp(line, "NO ", 3))
-            cfg->no = ft_strdup(line + 3);
+            game->config->no = ft_strdup(line + 3);
         else if (!ft_strncmp(line, "SO ", 3))
-            cfg->so = ft_strdup(line + 3);
+            game->config->so = ft_strdup(line + 3);
         else if (!ft_strncmp(line, "WE ", 3))
-            cfg->we = ft_strdup(line + 3);
+            game->config->we = ft_strdup(line + 3);
         else if (!ft_strncmp(line, "EA ", 3))
-            cfg->ea = ft_strdup(line + 3);
+            game->config->ea = ft_strdup(line + 3);
         else if (!ft_strncmp(line, "F ", 2))
-            cfg->f = ft_strdup(line + 2);
+            game->config->f = ft_strdup(line + 2);
         else if (!ft_strncmp(line, "C ", 2))
-            cfg->c = ft_strdup(line + 2);
+            game->config->c = ft_strdup(line + 2);
         else
         {
             ft_putendl_fd("Error: Unknown identifier", 2);
@@ -133,7 +138,7 @@ void    parse_identifiers(int fd, t_config *cfg)
         }
         free(line);
     }
-    if (!cfg->no || !cfg->so || !cfg->we || !cfg->ea || !cfg->f || !cfg->c)
+    if (!game->config->no || !game->config->so || !game->config->we || !game->config->ea || !game->config->f || !game->config->c)
     {
         ft_putendl_fd("Error: Missing identifier", 2);
         exit(1);
@@ -175,6 +180,22 @@ int is_valid_char(char c)
     return (c == '0' || c == '1' || c == ' ' || is_player_char(c) || c == '\0');
 }
 
+// int is_closed(char **map)
+// {
+//     int i;
+//     int j;
+
+//     i = 0;
+//     while (map[i])
+//     {
+//         j = 0;
+//         while (map[i][j])
+//         {
+//             if (map[])
+//         }
+//     }
+// }
+
 int parse_map(char **map)
 {
     int i;
@@ -197,19 +218,21 @@ int parse_map(char **map)
         i++;
     }
     if (player != 1)
+    {
+        if (player == 0)
+            ft_putendl_fd("Error: No player found in map", 2);
+        else
+            ft_putendl_fd("Error: Multiple players found in map", 2);
         return (1);
+    }
+    // is_closed(map);
     return (0);
 }
 
-int parser(int ac, char **av)
+int parser(int ac, char **av, t_game *game)
 {
-    char **map;
-    t_config    config;
-    t_color     color;
     int fd;
 
-    ft_memset(&config, 0, sizeof(config));
-    ft_memset(&color, 0, sizeof(color));
     if (ac != 2)
     {
         ft_putendl_fd("Error: Usage: ./cub3d <map.cub>", 2);
@@ -223,29 +246,28 @@ int parser(int ac, char **av)
         perror("open");
         return (1);
     }
-    parse_identifiers(fd, &config);
+    parse_identifiers(fd, game);
     close(fd);
-    if (parse_rgb(config.f, &config.floor))
+    if (parse_rgb(game->config->f, &game->config->floor))
     {
         ft_putendl_fd("Error: Invalid floor color", 2);
         return (1);
     }
-    if (parse_rgb(config.c, &config.ceil))
+    if (parse_rgb(game->config->c, &game->config->ceil))
     {
         ft_putendl_fd("Error: Invalid ceiling color", 2);
         return (1);
     }
-    map = read_map(av[1]);
-    if (!map)
+    game->map->map = read_map(av[1]);
+    if (!game->map->map)
     {
         ft_putendl_fd("Error: Failed to read map", 2);
-        close(fd);
         return (1);
     }
-    if (parse_map(map))
+    if (parse_map(game->map->map))
     {
         ft_putendl_fd("Error: Invalid map", 2);
-        free_2d(map);
+        free_2d(game->map->map);
         return (1);
     }
     return (0);
