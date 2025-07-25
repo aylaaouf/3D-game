@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 06:21:11 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/25 00:39:05 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/07/25 16:32:28 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -180,23 +180,43 @@ int is_valid_char(char c)
     return (c == '0' || c == '1' || c == ' ' || is_player_char(c) || c == '\0');
 }
 
-// int is_closed(char **map)
-// {
-//     int i;
-//     int j;
+int is_closed(t_game *game)
+{
+    int i;
+    int j;
+    char c;
 
-//     i = 0;
-//     while (map[i])
-//     {
-//         j = 0;
-//         while (map[i][j])
-//         {
-//             if (map[])
-//         }
-//     }
-// }
+    i = 0;
+    game->map->height = ft_strlen_2d(game->map->map);
+    while (i < game->map->height)
+    {
+        j = 0;
+        game->map->last_width = ft_strlen(game->map->map[i]);
+        while (j < game->map->last_width)
+        {
+            c = game->map->map[i][j];
+            if (c == '0' || is_player_char(c))
+            {
+                if (i == 0 || j == 0 || i == game->map->height - 1 || j == game->map->last_width - 1)
+                    return (1);
+                if (game->map->map[i - 1][j] == ' ' ||
+                    game->map->map[i + 1][j] == ' ' ||
+                    game->map->map[i][j - 1] == ' ' ||
+                    game->map->map[i][j + 1] == ' ' ||
+                    !game->map->map[i - 1][j] ||
+                    !game->map->map[i + 1][j] ||
+                    !game->map->map[i][j - 1] ||
+                    !game->map->map[i][j + 1])
+                    return (1);
+            }
+            j++;
+        }
+        i++;
+    }
+    return (0);
+}
 
-int parse_map(char **map)
+int parse_map(t_game *game)
 {
     int i;
     int j;
@@ -204,14 +224,14 @@ int parse_map(char **map)
 
     player = 0;
     i = 0;
-    while (map[i])
+    while (game->map->map[i])
     {
         j = 0;
-        while (map[i][j])
+        while (game->map->map[i][j])
         {
-            if (!is_valid_char(map[i][j]))
+            if (!is_valid_char(game->map->map[i][j]))
                 return (1);
-            if (is_player_char(map[i][j]))
+            if (is_player_char(game->map->map[i][j]))
                 player++;
             j++;
         }
@@ -225,7 +245,8 @@ int parse_map(char **map)
             ft_putendl_fd("Error: Multiple players found in map", 2);
         return (1);
     }
-    // is_closed(map);
+    if (is_closed(game))
+        return (1);
     return (0);
 }
 
@@ -264,7 +285,7 @@ int parser(int ac, char **av, t_game *game)
         ft_putendl_fd("Error: Failed to read map", 2);
         return (1);
     }
-    if (parse_map(game->map->map))
+    if (parse_map(game))
     {
         ft_putendl_fd("Error: Invalid map", 2);
         free_2d(game->map->map);
