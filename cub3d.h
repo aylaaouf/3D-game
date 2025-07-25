@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 05:53:14 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/25 00:39:55 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/07/25 16:00:16 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ typedef struct s_map
 {
     char **map;
     int height;
-    int width;
+    int last_width;
 }              t_map;
 
 typedef struct s_color {
@@ -70,6 +70,7 @@ int     has_cub_extension(char *path);
 // utils
 char	*ft_strrchr(const char *s, int c);
 int     ft_strncmp(const char *s1, const char *s2, size_t n);
+int     ft_strlen_2d(char **args);
 size_t  ft_strlen(const char *s);
 void	ft_putendl_fd(char *s, int fd);
 void	*ft_memset(void *b, int c, size_t len);

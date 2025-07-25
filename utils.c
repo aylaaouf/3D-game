@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 05:52:41 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/23 10:20:33 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/07/25 15:55:09 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,16 @@ size_t	ft_strlen(const char *s)
 
 	i = 0;
 	while (s[i])
+		i++;
+	return (i);
+}
+
+int	ft_strlen_2d(char **args)
+{
+	int	i;
+
+	i = 0;
+	while (args[i])
 		i++;
 	return (i);
 }
