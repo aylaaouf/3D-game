@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 06:21:11 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/25 16:32:28 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/07/25 23:52:58 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int has_cub_extension(char *path)
 {
-    char    *extension;
+    char *extension;
 
     extension = ft_strrchr(path, '.');
     if (extension == NULL)
@@ -54,9 +54,9 @@ int count_map_lines(char *path)
     return (counter);
 }
 
-char    **read_map(char *path)
+char **read_map(char *path)
 {
-    int (fd), (i), total_lines;
+    int(fd), (i), total_lines;
     char *line;
     char **map;
 
@@ -98,11 +98,13 @@ char    **read_map(char *path)
     return (map);
 }
 
-void    parse_identifiers(int fd, t_game *game)
+int parse_identifiers(int fd, t_game *game)
 {
     char *line;
     char *newline;
+    int flag;
 
+    flag = 0;
     while ((line = get_next_line(fd)))
     {
         if (line[0] == '\n')
@@ -113,41 +115,78 @@ void    parse_identifiers(int fd, t_game *game)
         else if (line[0] == '1' || line[0] == ' ')
         {
             free(line);
-            break ;
+            break;
         }
         newline = ft_strrchr(line, '\n');
         if (newline)
             *newline = '\0';
         if (!ft_strncmp(line, "NO ", 3))
+        {
+            flag++;
+            if (game->config->no)
+                free(game->config->no);
             game->config->no = ft_strdup(line + 3);
+        }
         else if (!ft_strncmp(line, "SO ", 3))
+        {
+            flag++;
+            if (game->config->so)
+                free(game->config->so);
             game->config->so = ft_strdup(line + 3);
+        }
         else if (!ft_strncmp(line, "WE ", 3))
+        {
+            flag++;
+            if (game->config->we)
+                free(game->config->we);
             game->config->we = ft_strdup(line + 3);
+        }
         else if (!ft_strncmp(line, "EA ", 3))
+        {
+            flag++;
+            if (game->config->ea)
+                free(game->config->ea);
             game->config->ea = ft_strdup(line + 3);
+        }
         else if (!ft_strncmp(line, "F ", 2))
+        {
+            flag++;
+            if (game->config->f)
+                free(game->config->f);
             game->config->f = ft_strdup(line + 2);
+        }
         else if (!ft_strncmp(line, "C ", 2))
+        {
+            flag++;
+            if (game->config->c)
+                free(game->config->c);
             game->config->c = ft_strdup(line + 2);
+        }
         else
         {
             ft_putendl_fd("Error: Unknown identifier", 2);
             free(line);
-            exit(1);
+            return (1);
+        }
+        if (flag > 6)
+        {
+            ft_putendl_fd("Error: duplicate", 2);
+            free(line);
+            return (1);
         }
         free(line);
     }
     if (!game->config->no || !game->config->so || !game->config->we || !game->config->ea || !game->config->f || !game->config->c)
     {
         ft_putendl_fd("Error: Missing identifier", 2);
-        exit(1);
+        return (1);
     }
+    return (0);
 }
 
 int parse_rgb(char *str, t_color *color)
 {
-    int (r), (g), b;
+    int(r), (g), b;
     char **split_result;
     if (!str || !color)
         return (1);
@@ -163,7 +202,10 @@ int parse_rgb(char *str, t_color *color)
     b = ft_atoi(split_result[2]);
     free_2d(split_result);
     if (r < 0 || r > 255 || g < 0 || g > 255 || b < 0 || b > 255)
-        return 1;
+    {
+        get_next_line(-1);
+        return (1);
+    }
     color->r = r;
     color->g = g;
     color->b = b;
@@ -198,7 +240,10 @@ int is_closed(t_game *game)
             if (c == '0' || is_player_char(c))
             {
                 if (i == 0 || j == 0 || i == game->map->height - 1 || j == game->map->last_width - 1)
+                {
+                    ft_putendl_fd("Error: Map is not closed by walls", 2);
                     return (1);
+                }
                 if (game->map->map[i - 1][j] == ' ' ||
                     game->map->map[i + 1][j] == ' ' ||
                     game->map->map[i][j - 1] == ' ' ||
@@ -207,7 +252,10 @@ int is_closed(t_game *game)
                     !game->map->map[i + 1][j] ||
                     !game->map->map[i][j - 1] ||
                     !game->map->map[i][j + 1])
+                {
+                    ft_putendl_fd("Error: Map is not closed by walls", 2);
                     return (1);
+                }
             }
             j++;
         }
@@ -230,7 +278,10 @@ int parse_map(t_game *game)
         while (game->map->map[i][j])
         {
             if (!is_valid_char(game->map->map[i][j]))
+            {
+                ft_putendl_fd("Error: Invalid character in map", 2);
                 return (1);
+            }
             if (is_player_char(game->map->map[i][j]))
                 player++;
             j++;
@@ -267,7 +318,8 @@ int parser(int ac, char **av, t_game *game)
         perror("open");
         return (1);
     }
-    parse_identifiers(fd, game);
+    if (parse_identifiers(fd, game))
+        return ((get_next_line(-1)), 1);
     close(fd);
     if (parse_rgb(game->config->f, &game->config->floor))
     {
