@@ -6,11 +6,21 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 05:46:51 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/25 00:41:37 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/07/25 17:41:34 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
+
+void    free_config(t_config *config)
+{
+    free(config->no);
+    free(config->so);
+    free(config->we);
+    free(config->ea);
+    free(config->f);
+    free(config->c);
+}
 
 int main(int ac, char **av)
 {
@@ -27,9 +37,19 @@ int main(int ac, char **av)
     ft_memset(game->map, 0, sizeof(t_map));
     ft_memset(game->config, 0, sizeof(t_config));
     if (parser(ac, av, game))
+    {
+        free_config(game->config);
+        free(game->map);
+        free(game->config);
+        free(game);
         return (1);
+    }
     game->mlx = mlx_init();
     game->win = mlx_new_window(game->mlx, 1920, 1080, "cub3D");
     mlx_loop(game->mlx);
+    free_config(game->config);
+    free(game->map);
+    free(game->config);
+    free(game);
     return (0);
 }
