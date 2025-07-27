@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 06:21:11 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/25 23:52:58 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/07/27 10:24:55 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,22 @@ int count_map_lines(char *path)
     return (counter);
 }
 
+int is_empty_line(char *line)
+{
+    int i;
+
+    i = 0;
+    while (line[i] && (line[i] == ' ' || line[i] == '\t'))
+        i++;
+    return (line[i] == '\n' || line[i] == '\0');
+}
+
 char **read_map(char *path)
 {
     int(fd), (i), total_lines;
     char *line;
     char **map;
+    int map_started;
 
     fd = open(path, O_RDONLY);
     if (fd < 0)
@@ -67,6 +78,7 @@ char **read_map(char *path)
         return (NULL);
     }
     total_lines = count_map_lines(path);
+    map_started = 0;
     if (total_lines <= 0)
     {
         close(fd);
@@ -76,22 +88,40 @@ char **read_map(char *path)
     if (!map)
     {
         ft_putendl_fd("Error: Failed to read map", 2);
-        exit(1);
+        close(fd);
+        return (NULL);
     }
     if (total_lines <= 0)
         return (NULL);
     i = 0;
     while ((line = get_next_line(fd)))
     {
-        if (line[0] == '1' || line[0] == ' ')
+        if (!map_started && !(line[0] == '1' || line[0] == ' '))
         {
-            char *newline = ft_strrchr(line, '\n');
-            if (newline)
-                *newline = '\0';
-            map[i++] = line;
-        }
-        else
             free(line);
+            continue;
+        }
+        if (!map_started && (line[0] == '1' || line[0] == ' '))
+            map_started = 1;
+        if (map_started)
+        {
+            if (line[0] == '1' || line[0] == ' ')
+            {
+                char *newline = ft_strrchr(line, '\n');
+                if (newline)
+                    *newline = '\0';
+                map[i++] = line;
+            }
+            else if (is_empty_line(line))
+            {
+                ft_putendl_fd("Error: empty line inside the map", 2);
+                free(line);
+                free_2d(map);
+                get_next_line(-1);
+                close(fd);
+                return (NULL);
+            }
+        }
     }
     map[i] = NULL;
     close(fd);
@@ -334,7 +364,7 @@ int parser(int ac, char **av, t_game *game)
     game->map->map = read_map(av[1]);
     if (!game->map->map)
     {
-        ft_putendl_fd("Error: Failed to read map", 2);
+        // ft_putendl_fd("Error: Failed to read map", 2);
         return (1);
     }
     if (parse_map(game))
