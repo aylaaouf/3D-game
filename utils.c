@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 05:52:41 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/25 15:55:09 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/07/27 10:26:16 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,4 +170,21 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 		dst[i] = '\0';
 	}
 	return (len);
+}
+
+void	*ft_calloc(size_t count, size_t size)
+{
+	size_t			total;
+	void			*ptr;
+
+	if (size != 0 && (count > SIZE_MAX / size))
+		return (NULL);
+	total = count * size;
+	ptr = malloc(total);
+	if (!ptr)
+	{
+		return (NULL);
+	}
+	ft_memset(ptr, 0, total);
+	return (ptr);
 }

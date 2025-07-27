@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 06:21:11 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/27 10:24:55 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/07/27 10:29:57 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char **read_map(char *path)
         close(fd);
         return (NULL);
     }
-    map = malloc((total_lines + 1) * sizeof(char *));
+    map = ft_calloc((total_lines + 1) , sizeof(char *));
     if (!map)
     {
         ft_putendl_fd("Error: Failed to read map", 2);

@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 05:53:14 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/25 16:00:16 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/07/27 10:28:33 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@
 # include "minilibx-linux/mlx.h"
 # include <string.h>
 # include <unistd.h>
+# include <stdlib.h>
+# include <stdint.h>
 # include "gnl/get_next_line.h"
 # include <fcntl.h>
 
@@ -80,5 +82,6 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize);
 char	**ft_split(char const *s, char c);
 int	    ft_atoi(const char *str);
 void	free_2d(char **args);
+void	*ft_calloc(size_t count, size_t size);
 
 #endif
