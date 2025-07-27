@@ -6,11 +6,11 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/23 06:23:42 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/23 06:24:05 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/07/27 16:08:06 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 static int	ft_count(char const *str, char c)
 {

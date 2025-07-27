@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 06:21:11 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/27 10:29:57 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/07/27 14:51:59 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ char **read_map(char *path)
         close(fd);
         return (NULL);
     }
-    map = ft_calloc((total_lines + 1) , sizeof(char *));
+    map = ft_calloc((total_lines + 1), sizeof(char *));
     if (!map)
     {
         ft_putendl_fd("Error: Failed to read map", 2);
@@ -191,12 +191,6 @@ int parse_identifiers(int fd, t_game *game)
             if (game->config->c)
                 free(game->config->c);
             game->config->c = ft_strdup(line + 2);
-        }
-        else
-        {
-            ft_putendl_fd("Error: Unknown identifier", 2);
-            free(line);
-            return (1);
         }
         if (flag > 6)
         {
@@ -363,10 +357,7 @@ int parser(int ac, char **av, t_game *game)
     }
     game->map->map = read_map(av[1]);
     if (!game->map->map)
-    {
-        // ft_putendl_fd("Error: Failed to read map", 2);
         return (1);
-    }
     if (parse_map(game))
     {
         ft_putendl_fd("Error: Invalid map", 2);
