@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 06:21:11 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/28 16:42:56 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/07/28 16:49:15 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -359,10 +359,6 @@ int parser(int ac, char **av, t_game *game)
     if (!game->map->map)
         return (1);
     if (parse_map(game))
-    {
-        ft_putendl_fd("Error: Invalid map", 2);
-        free_2d(game->map->map);
-        return (1);
-    }
+        return (free_2d(game->map->map), 1);
     return (0);
 }
