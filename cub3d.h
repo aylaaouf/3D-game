@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 05:53:14 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/29 22:02:46 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/07/29 22:22:23 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,10 +91,12 @@ int	    is_empty_line(char *line);
 int	    is_player_char(char c);
 int     is_valid_char(char c);
 char	**read_map(char *path);
+int     is_closed(t_game *game);
 int	    parse_identifiers(int fd, t_game *game);
 int     player_error(int player);
 int     should_skip_line(char *line);
 int     is_map_line(char *line);
+int     condition_b(t_game *game, int player);
 
 // utils
 char	*ft_strrchr(const char *s, int c);

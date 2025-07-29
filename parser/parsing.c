@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 06:21:11 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/29 22:09:51 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/07/29 22:20:44 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,10 +81,7 @@ int	is_closed(t_game *game)
 
 int	parse_map(t_game *game)
 {
-	int	i;
-	int	j;
-	int	player;
-
+	int i, (j), (player);
 	player = 0;
 	i = 0;
 	while (game->map->map[i])
@@ -104,9 +101,7 @@ int	parse_map(t_game *game)
 		}
 		i++;
 	}
-	if (player_error(player))
-		return (1);
-	if (is_closed(game))
+	if (condition_b(game, player))
 		return (1);
 	return (0);
 }
