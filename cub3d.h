@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 05:53:14 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/28 21:59:39 by ayelasef         ###   ########.fr       */
+/*   Updated: 2025/07/29 12:10:40 by ayelasef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,15 @@
 # include <stdint.h>
 # include "gnl/get_next_line.h"
 # include <fcntl.h>
-
-#define TILE_SIZE 10
+# include <math.h>
 #define MOVE_STEP 0.2
+#define SCREEN_WIDTH 1920
+#define SCREEN_HEIGHT 1080
+#define TILE_SIZE 8       // minimap tile size in pixels
+#define MINIMAP_OFFSET_X 20
+#define MINIMAP_OFFSET_Y 20
+#define MINIMAP_WIDTH 10  // tiles
+#define MINIMAP_HEIGHT 10 // tiles
 typedef struct s_map
 {
     char **map;
@@ -65,8 +71,16 @@ typedef struct s_game
     t_player  player;
     void      *mlx;
     void      *win;
+	int         prev_px;
+    int         prev_py;
 } t_game;
 
+//init
+int	rgb(int r, int g, int b);
+void init_color(t_color *color, int r, int g, int b);
+void	find_and_init_player(t_game *game);
+void init_player(t_player *player, int x, int y, char dir);
+void init_config(t_config *config);
 // parsing
 int     parser(int ac, char **av, t_game *game);
 int     has_cub_extension(char *path);
@@ -85,9 +99,13 @@ char	**ft_split(char const *s, char c);
 int	    ft_atoi(const char *str);
 void	free_2d(char **args);
 void	*ft_calloc(size_t count, size_t size);
+//raycast
 
+void	raycast(t_game *game);
 //minimap
 
+void draw_square(t_game *game, int x, int y, int color);
+int render_frame(t_game *game);
 void	render_minimap(t_game *game);
 //move_player 
 

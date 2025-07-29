@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 05:46:51 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/28 21:59:42 by ayelasef         ###   ########.fr       */
+/*   Updated: 2025/07/29 11:10:16 by ayelasef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,17 @@ int main(int ac, char **av)
         free(game);
         return (1);
     }
+	game->config = malloc(sizeof(t_config));
+	init_config(game->config);
+	find_and_init_player(game);
     game->mlx = mlx_init();
     game->win = mlx_new_window(game->mlx, 1920, 1080, "cub3D");
+	game->player.dir_x = -1;
+    game->player.dir_y = -0;
+    game->player.plane_x = 0;
+    game->player.plane_y = 0.66;
+	/*mlx_loop_hook(game->mlx, render_frame, game);*/
+	raycast(game);
 	render_minimap(game);
 	mlx_key_hook(game->win, handle_keypress, game);
     mlx_loop(game->mlx);
