@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 06:21:11 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/29 17:40:36 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/07/29 22:09:51 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,7 +95,11 @@ int	parse_map(t_game *game)
 			if (!is_valid_char(game->map->map[i][j]))
 				return (ft_putendl_fd("Error: Invalid character in map", 2), 1);
 			if (is_player_char(game->map->map[i][j]))
+			{
+				game->player.x = j;
+				game->player.y = i;
 				player++;
+			}
 			j++;
 		}
 		i++;
