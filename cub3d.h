@@ -6,7 +6,11 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 05:53:14 by aylaaouf          #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2025/07/29 21:51:21 by aylaaouf         ###   ########.fr       */
+=======
+/*   Updated: 2025/07/29 12:10:40 by ayelasef         ###   ########.fr       */
+>>>>>>> 8aa3c62 (add raycasting)
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,8 +69,16 @@ typedef struct s_game
     t_player  player;
     void      *mlx;
     void      *win;
+	int         prev_px;
+    int         prev_py;
 } t_game;
 
+//init
+int	rgb(int r, int g, int b);
+void init_color(t_color *color, int r, int g, int b);
+void	find_and_init_player(t_game *game);
+void init_player(t_player *player, int x, int y, char dir);
+void init_config(t_config *config);
 // parsing
 int     parser(int ac, char **av, t_game *game);
 int     has_cub_extension(char *path);
@@ -94,9 +106,13 @@ char	**ft_split(char const *s, char c);
 int	    ft_atoi(const char *str);
 void	free_2d(char **args);
 void	*ft_calloc(size_t count, size_t size);
+//raycast
 
+void	raycast(t_game *game);
 //minimap
 
+void draw_square(t_game *game, int x, int y, int color);
+int render_frame(t_game *game);
 void	render_minimap(t_game *game);
 //move_player 
 
