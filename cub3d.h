@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 05:53:14 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/29 17:40:03 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/07/29 21:51:21 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,4 +95,10 @@ int	    ft_atoi(const char *str);
 void	free_2d(char **args);
 void	*ft_calloc(size_t count, size_t size);
 
+//minimap
+
+void	render_minimap(t_game *game);
+//move_player 
+
+int handle_keypress(int keycode, t_game *game);
 #endif
