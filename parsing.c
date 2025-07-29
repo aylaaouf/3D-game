@@ -307,7 +307,11 @@ int parse_map(t_game *game)
                 return (1);
             }
             if (is_player_char(game->map->map[i][j]))
+			{
                 player++;
+				game->player.x = j;
+                game->player.y = i;
+			}
             j++;
         }
         i++;

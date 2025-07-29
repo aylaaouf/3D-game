@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 05:53:14 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/27 10:28:33 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/07/28 21:59:39 by ayelasef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,6 +22,8 @@
 # include "gnl/get_next_line.h"
 # include <fcntl.h>
 
+#define TILE_SIZE 10
+#define MOVE_STEP 0.2
 typedef struct s_map
 {
     char **map;
@@ -84,4 +86,10 @@ int	    ft_atoi(const char *str);
 void	free_2d(char **args);
 void	*ft_calloc(size_t count, size_t size);
 
+//minimap
+
+void	render_minimap(t_game *game);
+//move_player 
+
+int handle_keypress(int keycode, t_game *game);
 #endif
