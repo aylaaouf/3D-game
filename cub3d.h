@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 05:53:14 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/27 10:28:33 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/07/29 17:40:03 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <stdint.h>
 # include "gnl/get_next_line.h"
 # include <fcntl.h>
+
+#define WALL_ERR "Error: Map is not closed by walls"
 
 typedef struct s_map
 {
@@ -68,6 +70,15 @@ typedef struct s_game
 // parsing
 int     parser(int ac, char **av, t_game *game);
 int     has_cub_extension(char *path);
+int	    count_map_lines(char *path);
+int	    is_empty_line(char *line);
+int	    is_player_char(char c);
+int     is_valid_char(char c);
+char	**read_map(char *path);
+int	    parse_identifiers(int fd, t_game *game);
+int     player_error(int player);
+int     should_skip_line(char *line);
+int     is_map_line(char *line);
 
 // utils
 char	*ft_strrchr(const char *s, int c);

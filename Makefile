@@ -1,7 +1,8 @@
 NAME := cub3d
 
-SRC:= main.c parser/parsing.c utils/utils.c utils/utils_2.c utils/utils_3.c utils/utils_4.c \
-		gnl/get_next_line.c gnl/get_next_line_utils.c \
+SRC:= main.c parser/parsing.c parser/parsing_utils.c parser/parsing_utils2.c \
+		parser/parsing_utils3.c parser/parsing_utils4.c utils/utils.c utils/utils_2.c \
+		utils/utils_3.c utils/utils_4.c gnl/get_next_line.c gnl/get_next_line_utils.c \
 
 CC := cc
 
