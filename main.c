@@ -6,54 +6,26 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 05:46:51 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/29 21:54:59 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/07/29 21:59:19 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "cub3d.h"
 
-void	free_config(t_config *config)
+void    free_config(t_config *config)
 {
-	free(config->no);
-	free(config->so);
-	free(config->we);
-	free(config->ea);
-	free(config->f);
-	free(config->c);
+    free(config->no);
+    free(config->so);
+    free(config->we);
+    free(config->ea);
+    free(config->f);
+    free(config->c);
 }
 
-int	main(int ac, char **av)
+int main(int ac, char **av)
 {
-	t_game	*game;
+    t_game *game;
 
-<<<<<<< HEAD
-	game = malloc(sizeof(t_game));
-	if (!game)
-		return (1);
-	ft_memset(game, 0, sizeof(t_game));
-	game->map = malloc(sizeof(t_map));
-	game->config = malloc(sizeof(t_config));
-	if (!game->map || !game->config)
-		return (1);
-	ft_memset(game->map, 0, sizeof(t_map));
-	ft_memset(game->config, 0, sizeof(t_config));
-	if (parser(ac, av, game))
-	{
-		free_config(game->config);
-		free(game->map);
-		free(game->config);
-		free(game);
-		return (1);
-	}
-	game->mlx = mlx_init();
-	game->win = mlx_new_window(game->mlx, 1920, 1080, "cub3D");
-	mlx_loop(game->mlx);
-	free_config(game->config);
-	free(game->map);
-	free(game->config);
-	free(game);
-	return (0);
-=======
     game = malloc(sizeof(t_game));
     if (!game)
         return (1);
@@ -91,5 +63,4 @@ int	main(int ac, char **av)
     free(game->config);
     free(game);
     return (0);
->>>>>>> 8aa3c62 (add raycasting)
 }

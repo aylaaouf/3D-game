@@ -6,11 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 05:53:14 by aylaaouf          #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2025/07/29 21:51:21 by aylaaouf         ###   ########.fr       */
-=======
-/*   Updated: 2025/07/29 12:10:40 by ayelasef         ###   ########.fr       */
->>>>>>> 8aa3c62 (add raycasting)
+/*   Updated: 2025/07/29 22:02:46 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +21,17 @@
 # include <stdint.h>
 # include "gnl/get_next_line.h"
 # include <fcntl.h>
+# include <math.h>
 
 #define WALL_ERR "Error: Map is not closed by walls"
-
+#define MOVE_STEP 0.2
+#define SCREEN_WIDTH 1920
+#define SCREEN_HEIGHT 1080
+#define TILE_SIZE 8       // minimap tile size in pixels
+#define MINIMAP_OFFSET_X 20
+#define MINIMAP_OFFSET_Y 20
+#define MINIMAP_WIDTH 10  // tiles
+#define MINIMAP_HEIGHT 10 // tiles
 typedef struct s_map
 {
     char **map;
