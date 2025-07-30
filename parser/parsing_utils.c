@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 17:18:52 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/29 16:10:13 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/07/30 16:40:03 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,11 +18,11 @@ int	has_cub_extension(char *path)
 
 	extension = ft_strrchr(path, '.');
 	if (extension == NULL)
-		return (ft_putendl_fd("Error: Not a valid path", 2), 1);
+		return (ft_putendl_fd(INVALID_PATH, 2), 1);
 	if (strcmp(extension, ".cub") == 0)
 		return (0);
 	else
-		return (ft_putendl_fd("Error: Not a valid extension", 2), 1);
+		return (ft_putendl_fd(INVALID_EXT, 2), 1);
 }
 
 int	count_map_lines(char *path)
@@ -67,9 +67,9 @@ int	player_error(int player)
 	if (player != 1)
 	{
 		if (player == 0)
-			ft_putendl_fd("Error: No player found in map", 2);
+			ft_putendl_fd(NO_PLAYER_FOUND, 2);
 		else
-			ft_putendl_fd("Error: Multiple players found in map", 2);
+			ft_putendl_fd(MULTI_PLAYERS, 2);
 		return (1);
 	}
 	return (0);

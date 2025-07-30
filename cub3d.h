@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 05:53:14 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/29 22:22:23 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/07/30 16:40:56 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,20 @@
 # include <string.h>
 # include <unistd.h>
 
-# define WALL_ERR "Error: Map is not closed by walls"
+# define USAGE_ERR        "Error: Usage — correct format is ./cub3d <map.cub>"
+# define INVALID_FLOOR    "Error: Invalid floor RGB color format"
+# define INVALID_CEILING  "Error: Invalid ceiling RGB color format"
+# define MAP_NOT_CLOSED   "Error: Map is not properly enclosed by walls"
+# define NO_PLAYER_FOUND  "Error: Player starting position is missing in the map"
+# define MULTI_PLAYERS    "Error: Multiple player positions found in the map"
+# define INVALID_PATH     "Error: Invalid map path or unreachable area"
+# define INVALID_EXT      "Error: File extension must be .cub"
+# define EMPTY_MAP_LINE   "Error: Empty line found inside the map data"
+# define MAP_READ_FAIL    "Error: Failed to read the map file"
+# define DUPLICATE_ID     "Error: Duplicate identifier found"
+# define MISSING_ID       "Error: One or more required identifiers are missing"
+# define INVALID_CHAR_MAP "Error: Invalid character detected in the map"
+
 # define MOVE_STEP 0.2
 # define SCREEN_WIDTH 1920
 # define SCREEN_HEIGHT 1080

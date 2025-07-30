@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 06:21:11 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/29 22:20:44 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/07/30 16:41:12 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ int	is_closed(t_game *game)
 			if (c == '0' || is_player_char(c))
 			{
 				if (condition(game, i, j))
-					return (ft_putendl_fd(WALL_ERR, 2), 1);
+					return (ft_putendl_fd(MAP_NOT_CLOSED, 2), 1);
 			}
 			j++;
 		}
@@ -90,7 +90,7 @@ int	parse_map(t_game *game)
 		while (game->map->map[i][j])
 		{
 			if (!is_valid_char(game->map->map[i][j]))
-				return (ft_putendl_fd("Error: Invalid character in map", 2), 1);
+				return (ft_putendl_fd(INVALID_CHAR_MAP, 2), 1);
 			if (is_player_char(game->map->map[i][j]))
 			{
 				game->player.x = j;
@@ -111,7 +111,7 @@ int	parser(int ac, char **av, t_game *game)
 	int	fd;
 
 	if (ac != 2)
-		return (ft_putendl_fd("Error: Usage: ./cub3d <map.cub>", 2), 1);
+		return (ft_putendl_fd(USAGE_ERR, 2), 1);
 	if (has_cub_extension(av[1]))
 		return (1);
 	fd = open(av[1], O_RDONLY);
@@ -121,9 +121,9 @@ int	parser(int ac, char **av, t_game *game)
 		return ((get_next_line(-1)), 1);
 	close(fd);
 	if (parse_rgb(game->config->f, &game->config->floor))
-		return (ft_putendl_fd("Error: Invalid floor color", 2), 1);
+		return (ft_putendl_fd(INVALID_FLOOR, 2), 1);
 	if (parse_rgb(game->config->c, &game->config->ceil))
-		return (ft_putendl_fd("Error: Invalid ceiling color", 2), 1);
+		return (ft_putendl_fd(INVALID_CEILING, 2), 1);
 	game->map->map = read_map(av[1]);
 	if (!game->map->map)
 		return (1);

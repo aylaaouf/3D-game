@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 17:38:47 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/29 18:51:28 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/07/30 16:38:06 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ static int	process_identifier(char *line, t_game *game, int *flag)
 	else if (!ft_strncmp(line, "C ", 2))
 		*flag += set_identifier(&game->config->c, line, 2);
 	if (*flag > 6)
-		return (ft_putendl_fd("Error: duplicate", 2), 1);
+		return (ft_putendl_fd(DUPLICATE_ID, 2), 1);
 	return (0);
 }
 
@@ -82,6 +82,6 @@ int	parse_identifiers(int fd, t_game *game)
 		return (1);
 	if (!game->config->no || !game->config->so || !game->config->we
 		|| !game->config->ea || !game->config->f || !game->config->c)
-		return (ft_putendl_fd("Error: Missing identifier", 2), 1);
+		return (ft_putendl_fd(MISSING_ID, 2), 1);
 	return (0);
 }

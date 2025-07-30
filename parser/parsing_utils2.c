@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 17:20:45 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/29 15:56:54 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/07/30 16:38:43 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@ static int	handle_map_line(char *line, char **map, int *i)
 	}
 	else if (is_empty_line(line))
 	{
-		ft_putendl_fd("Error: empty line inside the map", 2);
+		ft_putendl_fd(EMPTY_MAP_LINE, 2);
 		free(line);
 		return (1);
 	}
@@ -96,7 +96,7 @@ char	**read_map(char *path)
 	map = ft_calloc((total_lines + 1), sizeof(char *));
 	if (!map)
 	{
-		ft_putendl_fd("Error: Failed to read map", 2);
+		ft_putendl_fd(MAP_READ_FAIL, 2);
 		close(fd);
 		return (NULL);
 	}
