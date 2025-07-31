@@ -77,7 +77,6 @@ void render_minimap(t_game *game)
 
 int render_frame(t_game *game)
 {
-    // mlx_clear_window(game->mlx, game->win); // optional
     raycast(game);
     render_minimap(game);
     return (0);
