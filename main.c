@@ -36,6 +36,7 @@ int main(int ac, char **av)
         return (1);
     ft_memset(game->map, 0, sizeof(t_map));
     ft_memset(game->config, 0, sizeof(t_config));
+	game->prev_mouse_x = SCREEN_WIDTH  / 2;
     if (parser(ac, av, game))
     {
         free_config(game->config);
@@ -53,10 +54,11 @@ int main(int ac, char **av)
     game->player.dir_y = -0;
     game->player.plane_x = 0;
     game->player.plane_y = 0.66;
-	/*mlx_loop_hook(game->mlx, render_frame, game);*/
-	raycast(game);
-	render_minimap(game);
-	mlx_key_hook(game->win, handle_keypress, game);
+	mlx_loop_hook(game->mlx, &render_frame, game);
+	mlx_hook(game->win, 2, 1L << 0, handle_key_press, game);
+	mlx_hook(game->win, 3, 1L << 1, handle_key_release, game);
+	mlx_hook(game->win, 6, 1L << 6, mouse_move, game);
+	mlx_loop_hook(game->mlx, game_loop, game);
     mlx_loop(game->mlx);
     free_config(game->config);
     free(game->map);

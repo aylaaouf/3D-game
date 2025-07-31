@@ -81,6 +81,13 @@ typedef struct s_player
 	double		plane_y;
 }				t_player;
 
+typedef struct s_keys {
+	int w;
+	int s;
+	int a;
+	int d;
+}	t_keys;
+
 typedef struct s_game
 {
 	t_map		*map;
@@ -89,8 +96,11 @@ typedef struct s_game
 	void		*mlx;
 	void		*win;
 	int			prev_px;
+	t_keys		keys;
 	int			prev_py;
+	int			prev_mouse_x;
 }				t_game;
+
 
 // init
 int				rgb(int r, int g, int b);
@@ -137,5 +147,9 @@ int				render_frame(t_game *game);
 void			render_minimap(t_game *game);
 // move_player
 
+int handle_key_release(int keycode, t_game *game);
+int handle_key_press(int keycode, t_game *game);
+int game_loop(t_game *game);
+int	mouse_move(int x, int y, t_game *game);
 int				handle_keypress(int keycode, t_game *game);
 #endif
