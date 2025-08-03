@@ -57,7 +57,7 @@ int main(int ac, char **av)
 	mlx_loop_hook(game->mlx, &render_frame, game);
 	mlx_hook(game->win, 2, 1L << 0, handle_key_press, game);
 	mlx_hook(game->win, 3, 1L << 1, handle_key_release, game);
-	mlx_hook(game->win, 6, 1L << 6, mouse_move, game);
+	/*mlx_hook(game->win, 6, 1L << 6, mouse_move, game);*/
 	mlx_loop_hook(game->mlx, game_loop, game);
     mlx_loop(game->mlx);
     free_config(game->config);
