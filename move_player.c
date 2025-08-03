@@ -89,35 +89,26 @@ int handle_key_release(int keycode, t_game *game)
 }
 int mouse_move(int x, int y, t_game *game)
 {
-	static int last_x = -1;
-	double rot_speed;
+    (void)y;
+    double sensitivity = 0.0009;
+    int delta_x = x - game->prev_mouse_x;
 
-	(void)y; // We don't care about y
+    if (delta_x != 0)
+    {
+        double old_dir_x = game->player.dir_x;
+        double angle = -delta_x * sensitivity;
 
-	if (last_x == -1)
-		last_x = x;
+        game->player.dir_x = game->player.dir_x * cos(angle) - game->player.dir_y * sin(angle);
+        game->player.dir_y = old_dir_x * sin(angle) + game->player.dir_y * cos(angle);
 
-	if (x > last_x)
-		rot_speed = -0.03; // turn right
-	else if (x < last_x)
-		rot_speed = 0.03; // turn left
-	else
-		return (0);
+        double old_plane_x = game->player.plane_x;
+        game->player.plane_x = game->player.plane_x * cos(angle) - game->player.plane_y * sin(angle);
+        game->player.plane_y = old_plane_x * sin(angle) + game->player.plane_y * cos(angle);
 
-	// Rotate player direction
-	double old_dir_x = game->player.dir_x;
-	game->player.dir_x = game->player.dir_x * cos(rot_speed) - game->player.dir_y * sin(rot_speed);
-	game->player.dir_y = old_dir_x * sin(rot_speed) + game->player.dir_y * cos(rot_speed);
+        mlx_mouse_move(game->mlx, game->win, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+        game->prev_mouse_x = SCREEN_WIDTH / 2;
+    }
 
-	// Rotate camera plane
-	double old_plane_x = game->player.plane_x;
-	game->player.plane_x = game->player.plane_x * cos(rot_speed) - game->player.plane_y * sin(rot_speed);
-	game->player.plane_y = old_plane_x * sin(rot_speed) + game->player.plane_y * cos(rot_speed);
-
-	last_x = x;
-
-	// Redraw
-	raycast(game);
-	render_minimap(game);
-	return (0);
+    return (0);
 }
+
