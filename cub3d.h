@@ -45,11 +45,17 @@
 # define MINIMAP_OFFSET_Y 20
 # define MINIMAP_WIDTH 10  // tiles
 # define MINIMAP_HEIGHT 10 // tiles
+#define RESERVED_WIDTH 270
 typedef struct s_map
 {
 	char		**map;
 	int			height;
 	int			last_width;
+	void    *mlx_img;
+    char    *addr;
+    int     bpp;
+    int     line_len;
+    int     endian;
 }				t_map;
 
 typedef struct s_color
@@ -101,6 +107,14 @@ typedef struct s_game
 	int			prev_mouse_x;
 }				t_game;
 
+typedef struct s_img
+{
+    void    *mlx_img;
+    char    *addr;
+    int     bpp;
+    int     line_len;
+    int     endian;
+}   t_img;
 
 // init
 int				rgb(int r, int g, int b);

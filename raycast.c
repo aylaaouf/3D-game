@@ -17,12 +17,13 @@ void	draw_vertical_line(t_game *game, int x, int draw_start, int draw_end, int c
 	for (int y = draw_start; y <= draw_end; y++)
 		mlx_pixel_put(game->mlx, game->win, x, y, color);
 }
+
 void	raycast(t_game *game)
 {
-	for (int x = 0; x < SCREEN_WIDTH; x++)
+	for (int x = RESERVED_WIDTH; x < SCREEN_WIDTH; x++)
 	{
-		// 1. Calculate ray position and direction
-		double camera_x = 2 * x / (double)SCREEN_WIDTH - 1;
+		// 1. Calculate ray position and direction (adjusted for reserved width)
+		double camera_x = 2 * (x - RESERVED_WIDTH) / (double)(SCREEN_WIDTH - RESERVED_WIDTH) - 1;
 		double ray_dir_x = game->player.dir_x + game->player.plane_x * camera_x;
 		double ray_dir_y = game->player.dir_y + game->player.plane_y * camera_x;
 
@@ -99,7 +100,7 @@ void	raycast(t_game *game)
 
 		// 9. Draw ceiling
 		for (int y = 0; y < draw_start; y++)
-			mlx_pixel_put(game->mlx, game->win, x, y, 0x87CEEB);
+			mlx_pixel_put(game->mlx, game->win, x, y, 0x87CEEB); // Sky blue
 
 		// 10. Draw wall (color can depend on side for shading)
 		int color = (side == 1) ? 0x00FF00 : 0x0000FF;
@@ -108,6 +109,6 @@ void	raycast(t_game *game)
 
 		// 11. Draw floor
 		for (int y = draw_end + 1; y < SCREEN_HEIGHT; y++)
-			mlx_pixel_put(game->mlx, game->win, x, y, 0xFFFFFF);
+			mlx_pixel_put(game->mlx, game->win, x, y, 0xFFFFFF); // White
 	}
 }
