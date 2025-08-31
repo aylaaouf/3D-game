@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 05:53:14 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/30 16:40:56 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/08/31 10:57:14 by ayelasef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,6 +65,16 @@ typedef struct s_color
 	int			b;
 }				t_color;
 
+typedef struct s_texture {
+    void    *img;
+    char    *data;
+    int     width;
+    int     height;
+    int     bpp;
+    int     size_line;
+    int     endian;
+} t_texture;
+
 typedef struct s_config
 {
 	char		*no;
@@ -105,6 +115,8 @@ typedef struct s_game
 	t_keys		keys;
 	int			prev_py;
 	int			prev_mouse_x;
+	t_texture *wall_texture;
+    t_texture *floor_texture;
 }				t_game;
 
 typedef struct s_img
@@ -159,6 +171,7 @@ void			raycast(t_game *game);
 void			draw_square(t_game *game, int x, int y, int color);
 int				render_frame(t_game *game);
 void			render_minimap(t_game *game);
+void draw_square_texture(t_game *game, int x, int y, t_texture *texture);
 // move_player
 
 int handle_key_release(int keycode, t_game *game);
@@ -166,4 +179,13 @@ int handle_key_press(int keycode, t_game *game);
 int game_loop(t_game *game);
 int	mouse_move(int x, int y, t_game *game);
 int				handle_keypress(int keycode, t_game *game);
+//inir_textures
+
+int init_textures(t_game *game);
+//texture_rendering
+
+t_texture *load_texture(t_game *game, char *path);
+int get_texture_pixel(t_texture *texture, int x, int y);
+void put_pixel_texture(t_game *game, int x, int y, t_texture *texture, int tex_x, int tex_y);
+void put_pixel(t_game *game, int x, int y, int color);
 #endif

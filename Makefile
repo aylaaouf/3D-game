@@ -3,7 +3,7 @@ NAME := cub3d
 SRC:= main.c parser/parsing.c parser/parsing_utils.c parser/parsing_utils2.c \
 		parser/parsing_utils3.c parser/parsing_utils4.c utils/utils.c utils/utils_2.c \
 		utils/utils_3.c utils/utils_4.c gnl/get_next_line.c gnl/get_next_line_utils.c \
-		minimap.c move_player.c raycast.c init.c \
+		game/minimap.c game/move_player.c game/raycast.c game/init.c  game/init_textures.c game/texture_rendering.c
 
 CC := cc
 
