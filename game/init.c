@@ -10,7 +10,7 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
+#include "../cub3d.h"
 
 int	rgb(int r, int g, int b)
 {
@@ -48,7 +48,7 @@ void	find_and_init_player(t_game *game)
 			if (tile == 'N' || tile == 'S' || tile == 'E' || tile == 'W')
 			{
 				init_player(&game->player, x, y, tile);
-				game->map->map[y][x] = '0'; // Replace with floor after setting player
+				game->map->map[y][x] = '0';
 				return;
 			}
 			x++;

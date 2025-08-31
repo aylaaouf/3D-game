@@ -6,18 +6,11 @@
 /*   By: ayelasef <ayelasef@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 21:32:43 by ayelasef          #+#    #+#             */
-/*   Updated: 2025/07/29 12:12:44 by ayelasef         ###   ########.fr       */
+/*   Updated: 2025/08/31 11:04:56 by ayelasef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "cub3d.h"
-
-void put_pixel(t_game *game, int x, int y, int color)
-{
-    if (x < 0 || y < 0 || x >= 1920 || y >= 1080)
-        return;
-    mlx_pixel_put(game->mlx, game->win, x, y, color);
-}
+#include "../cub3d.h"
 
 void draw_square(t_game *game, int x, int y, int color)
 {
@@ -38,7 +31,7 @@ void draw_square(t_game *game, int x, int y, int color)
 
 void render_minimap(t_game *game)
 {
-    int map_x, map_y;
+    int map_x, map_y, x, y;
     map_y = 0;
 
     while (game->map->map[map_y])
@@ -46,19 +39,17 @@ void render_minimap(t_game *game)
         map_x = 0;
         while (game->map->map[map_y][map_x])
         {
-            int color;
             char tile = game->map->map[map_y][map_x];
 
             if (tile == '1')
-                color = 0xFFFFFF;
+                draw_square_texture(game, map_x * TILE_SIZE, map_y * TILE_SIZE, game->wall_texture);
             else if (tile == '0' || tile == 'N' || tile == 'S' || tile == 'E' || tile == 'W')
-                color = 0x808080;
+                draw_square(game, map_x * TILE_SIZE, map_y * TILE_SIZE, 0x808080);
             else
             {
                 map_x++;
                 continue;
             }
-            draw_square(game, map_x * TILE_SIZE, map_y * TILE_SIZE, color);
             map_x++;
         }
         map_y++;
@@ -66,12 +57,16 @@ void render_minimap(t_game *game)
     int px = (int)(game->player.x * TILE_SIZE);
     int py = (int)(game->player.y * TILE_SIZE);
 
-    for (int y = -2; y <= 2; y++)
+	y = -2;
+    while (y <= 2)
     {
-        for (int x = -2; x <= 2; x++)
+		x = -2;
+        while (x <= 2)
         {
             put_pixel(game, px + x, py + y, 0xFF0000);
+			x++;
         }
+		y++;
     }
 }
 

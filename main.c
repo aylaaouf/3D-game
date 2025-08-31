@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 05:46:51 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/29 21:59:19 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/08/31 11:12:18 by ayelasef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,11 @@ int main(int ac, char **av)
 	find_and_init_player(game);
     game->mlx = mlx_init();
     game->win = mlx_new_window(game->mlx, 1920, 1080, "cub3D");
+	if (!init_textures(game))
+	{
+		printf("Failed to initialize textures\n");
+        return (1);
+	}
 	game->player.dir_x = -1;
     game->player.dir_y = -0;
     game->player.plane_x = 0;
