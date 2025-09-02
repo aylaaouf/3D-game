@@ -12,67 +12,47 @@
 
 #include "../cub3d.h"
 
-void draw_square(t_game *game, int x, int y, int color)
+void draw_square_minimap(t_game *game, int x, int y, int color)
 {
-    int i, j;
-
-    i = 0;
-    while (i < TILE_SIZE)
-    {
-        j = 0;
-        while (j < TILE_SIZE)
-        {
-            put_pixel(game, x + j, y + i, color);
-            j++;
-        }
-        i++;
-    }
+    for (int i = 0; i < MINIMAP_TILE_SIZE; i++)
+        for (int j = 0; j < MINIMAP_TILE_SIZE; j++)
+            put_pixel_img(game, x + j, y + i, color);
 }
-
 void render_minimap(t_game *game)
 {
-    int map_x, map_y, x, y;
-    map_y = 0;
-
-    while (game->map->map[map_y])
+    for (int map_y = 0; map_y < game->map->height; map_y++)
     {
-        map_x = 0;
-        while (game->map->map[map_y][map_x])
+        int width = strlen(game->map->map[map_y]);
+        for (int map_x = 0; map_x < width; map_x++)
         {
             char tile = game->map->map[map_y][map_x];
-
+            int color;
             if (tile == '1')
-                draw_square_texture(game, map_x * TILE_SIZE, map_y * TILE_SIZE, game->wall_texture);
+                color = 0x888888; // wall
             else if (tile == '0' || tile == 'N' || tile == 'S' || tile == 'E' || tile == 'W')
-                draw_square(game, map_x * TILE_SIZE, map_y * TILE_SIZE, 0x808080);
+                color = 0xCCCCCC; // floor
             else
-            {
-                map_x++;
                 continue;
-            }
-            map_x++;
+            draw_square_minimap(
+                game,
+                MINIMAP_OFFSET_X + map_x * MINIMAP_TILE_SIZE,
+                MINIMAP_OFFSET_Y + map_y * MINIMAP_TILE_SIZE,
+                color
+            );
         }
-        map_y++;
     }
-    int px = (int)(game->player.x * TILE_SIZE);
-    int py = (int)(game->player.y * TILE_SIZE);
-
-	y = -2;
-    while (y <= 2)
-    {
-		x = -2;
-        while (x <= 2)
-        {
-            put_pixel(game, px + x, py + y, 0xFF0000);
-			x++;
-        }
-		y++;
-    }
+    // Draw player as a red dot
+    int px = MINIMAP_OFFSET_X + (int)(game->player.x * MINIMAP_TILE_SIZE);
+    int py = MINIMAP_OFFSET_Y + (int)(game->player.y * MINIMAP_TILE_SIZE);
+    for (int y = -2; y <= 2; y++)
+        for (int x = -2; x <= 2; x++)
+            put_pixel_img(game, px + x, py + y, 0xFF0000);
 }
-
 int render_frame(t_game *game)
 {
+	game_loop(game);
     raycast(game);
-    render_minimap(game);
+	render_minimap(game);
+	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
     return (0);
 }

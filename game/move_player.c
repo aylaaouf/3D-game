@@ -55,8 +55,7 @@ int game_loop(t_game *game)
 		game->player.plane_y = old_plane_x * sin(-rot_speed) + game->player.plane_y * cos(-rot_speed);
 	}
 
-	raycast(game);
-	render_minimap(game);
+	/*render_minimap(game);*/
 	return (0);
 }
 
