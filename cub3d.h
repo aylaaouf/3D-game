@@ -37,7 +37,7 @@
 # define MISSING_ID       "Error: One or more required identifiers are missing"
 # define INVALID_CHAR_MAP "Error: Invalid character detected in the map"
 
-# define MOVE_STEP 0.2
+# define MOVE_STEP 0.1
 # define SCREEN_WIDTH 1920
 # define SCREEN_HEIGHT 1080
 # define TILE_SIZE 8 // minimap tile size in pixels
