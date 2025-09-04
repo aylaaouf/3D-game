@@ -17,24 +17,28 @@ int game_loop(t_game *game)
 	double move_speed = 0.1;
 	double rot_speed = 0.05;
 	double new_x, new_y;
-
 	if (game->keys.w)
 	{
 		new_x = game->player.x + game->player.dir_x * move_speed;
 		new_y = game->player.y + game->player.dir_y * move_speed;
-		if (game->map->map[(int)new_y][(int)new_x] != '1') {
-			game->player.x = new_x;
+
+		// Check y first, then x (for sliding along walls)
+		if (game->map->map[(int)new_y][(int)game->player.x] != '1')
 			game->player.y = new_y;
-		}
+		if (game->map->map[(int)game->player.y][(int)new_x] != '1')
+			game->player.x = new_x;
 	}
+
+	// Move backward (S)
 	if (game->keys.s)
 	{
 		new_x = game->player.x - game->player.dir_x * move_speed;
 		new_y = game->player.y - game->player.dir_y * move_speed;
-		if (game->map->map[(int)new_y][(int)new_x] != '1') {
-			game->player.x = new_x;
+
+		if (game->map->map[(int)new_y][(int)game->player.x] != '1')
 			game->player.y = new_y;
-		}
+		if (game->map->map[(int)game->player.y][(int)new_x] != '1')
+			game->player.x = new_x;
 	}
 	if (game->keys.a)
 	{
@@ -88,26 +92,26 @@ int handle_key_release(int keycode, t_game *game)
 }
 int mouse_move(int x, int y, t_game *game)
 {
-    (void)y;
-    double sensitivity = 0.0009;
-    int delta_x = x - game->prev_mouse_x;
+	(void)y;
+	double sensitivity = 0.0009;
+	int delta_x = x - game->prev_mouse_x;
 
-    if (delta_x != 0)
-    {
-        double old_dir_x = game->player.dir_x;
-        double angle = -delta_x * sensitivity;
+	if (delta_x != 0)
+	{
+		double old_dir_x = game->player.dir_x;
+		double angle = -delta_x * sensitivity;
 
-        game->player.dir_x = game->player.dir_x * cos(angle) - game->player.dir_y * sin(angle);
-        game->player.dir_y = old_dir_x * sin(angle) + game->player.dir_y * cos(angle);
+		game->player.dir_x = game->player.dir_x * cos(angle) - game->player.dir_y * sin(angle);
+		game->player.dir_y = old_dir_x * sin(angle) + game->player.dir_y * cos(angle);
 
-        double old_plane_x = game->player.plane_x;
-        game->player.plane_x = game->player.plane_x * cos(angle) - game->player.plane_y * sin(angle);
-        game->player.plane_y = old_plane_x * sin(angle) + game->player.plane_y * cos(angle);
+		double old_plane_x = game->player.plane_x;
+		game->player.plane_x = game->player.plane_x * cos(angle) - game->player.plane_y * sin(angle);
+		game->player.plane_y = old_plane_x * sin(angle) + game->player.plane_y * cos(angle);
 
-        mlx_mouse_move(game->mlx, game->win, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
-        game->prev_mouse_x = SCREEN_WIDTH / 2;
-    }
+		mlx_mouse_move(game->mlx, game->win, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+		game->prev_mouse_x = SCREEN_WIDTH / 2;
+	}
 
-    return (0);
+	return (0);
 }
 
