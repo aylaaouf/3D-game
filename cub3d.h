@@ -131,6 +131,25 @@ typedef struct s_game
     int     endian;
     t_img      *img;
 }   t_game;
+
+typedef struct s_ray
+{
+	double	dir_x;
+	double	dir_y;
+	int		map_x;
+	int		map_y;
+	double	delta_dist_x;
+	double	delta_dist_y;
+	double	side_dist_x;
+	double	side_dist_y;
+	int		step_x;
+	int		step_y;
+	int		side;
+	double	perp_wall_dist;
+	int		line_height;
+	int		draw_start;
+	int		draw_end;
+}	t_ray;
 // init
 int				rgb(int r, int g, int b);
 void			init_color(t_color *color, int r, int g, int b);
