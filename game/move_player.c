@@ -14,27 +14,22 @@
 
 int game_loop(t_game *game)
 {
-	double move_speed = 0.1;
+	double move_speed = 0.09;
 	double rot_speed = 0.05;
 	double new_x, new_y;
 	if (game->keys.w)
 	{
 		new_x = game->player.x + game->player.dir_x * move_speed;
 		new_y = game->player.y + game->player.dir_y * move_speed;
-
-		// Check y first, then x (for sliding along walls)
 		if (game->map->map[(int)new_y][(int)game->player.x] != '1')
 			game->player.y = new_y;
 		if (game->map->map[(int)game->player.y][(int)new_x] != '1')
 			game->player.x = new_x;
 	}
-
-	// Move backward (S)
 	if (game->keys.s)
 	{
 		new_x = game->player.x - game->player.dir_x * move_speed;
 		new_y = game->player.y - game->player.dir_y * move_speed;
-
 		if (game->map->map[(int)new_y][(int)game->player.x] != '1')
 			game->player.y = new_y;
 		if (game->map->map[(int)game->player.y][(int)new_x] != '1')
@@ -58,8 +53,6 @@ int game_loop(t_game *game)
 		game->player.plane_x = game->player.plane_x * cos(-rot_speed) - game->player.plane_y * sin(-rot_speed);
 		game->player.plane_y = old_plane_x * sin(-rot_speed) + game->player.plane_y * cos(-rot_speed);
 	}
-
-	/*render_minimap(game);*/
 	return (0);
 }
 

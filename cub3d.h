@@ -123,7 +123,7 @@ typedef struct s_game
     int         prev_py;
     int         prev_mouse_x;
     t_keys      keys;
-    t_texture  *wall_texture;
+    t_texture  *wall_textures[4];
     t_texture  *floor_texture;
 	    char    *img_data;   // <--- add here if not using t_img
     int     bpp;

@@ -11,7 +11,11 @@
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+#include "../cub3d.h"
 
+/*
+ * Draws a pixel into the image buffer at (x, y) with the specified color.
+ */
 void put_pixel_img(t_game *game, int x, int y, int color)
 {
     if (x < 0 || x >= SCREEN_WIDTH || y < 0 || y >= SCREEN_HEIGHT)
@@ -20,6 +24,12 @@ void put_pixel_img(t_game *game, int x, int y, int color)
     *(unsigned int *)(game->img_data + idx) = color;
 }
 
+/*
+ * Performs raycasting and renders the 3D scene with 4 textures for each wall orientation.
+ * Assumes: 
+ *   - game->wall_textures[0] = North, [1] = South, [2] = East, [3] = West
+ *   - Map is stored as chars: '1' for wall, '0' for empty space
+ */
 void raycast(t_game *game)
 {
     for (int x = RESERVED_WIDTH; x < SCREEN_WIDTH; x++)
@@ -96,38 +106,46 @@ void raycast(t_game *game)
         for (int y = 0; y < draw_start; y++)
             put_pixel_img(game, x, y, 0x87CEEB);
 
-        // === TEXTURED WALL SLICE ===
-        if (game->wall_texture)
+        // === Select wall texture based on orientation and ray ===
+        t_texture *tex = NULL;
+        if (side == 0)
         {
-            double wall_x;
-            if (side == 0)
-                wall_x = game->player.y + perp_wall_dist * ray_dir_y;
+            if (ray_dir_x > 0)
+                tex = game->wall_textures[2]; // East wall
             else
-                wall_x = game->player.x + perp_wall_dist * ray_dir_x;
-            wall_x -= floor(wall_x);
-
-            int tex_x = (int)(wall_x * (double)game->wall_texture->width);
-            if ((side == 0 && ray_dir_x > 0) || (side == 1 && ray_dir_y < 0))
-                tex_x = game->wall_texture->width - tex_x - 1;
-
-            double step = 1.0 * game->wall_texture->height / line_height;
-            double tex_pos = (double)(draw_start - SCREEN_HEIGHT / 2 + line_height / 2) * step;
-
-            for (int y = draw_start; y <= draw_end; y++)
-            {
-                int tex_y = (int)tex_pos & (game->wall_texture->height - 1);
-                tex_pos += step;
-                int color = get_texture_pixel(game->wall_texture, tex_x, tex_y);
-                if (side == 1)
-                    color = (color >> 1) & 0x7F7F7F;
-                put_pixel_img(game, x, y, color);
-            }
+                tex = game->wall_textures[3]; // West wall
         }
         else
         {
-            int color = (side == 1) ? 0x00FF00 : 0x0000FF;
-            for (int y = draw_start; y <= draw_end; y++)
-                put_pixel_img(game, x, y, color);
+            if (ray_dir_y > 0)
+                tex = game->wall_textures[1]; // South wall
+            else
+                tex = game->wall_textures[0]; // North wall
+        }
+
+        // -- Texture mapping math --
+        double wall_x;
+        if (side == 0)
+            wall_x = game->player.y + perp_wall_dist * ray_dir_y;
+        else
+            wall_x = game->player.x + perp_wall_dist * ray_dir_x;
+        wall_x -= floor(wall_x);
+
+        int tex_x = (int)(wall_x * (double)tex->width);
+        if ((side == 0 && ray_dir_x > 0) || (side == 1 && ray_dir_y < 0))
+            tex_x = tex->width - tex_x - 1;
+
+        double step = 1.0 * tex->height / line_height;
+        double tex_pos = (double)(draw_start - SCREEN_HEIGHT / 2 + line_height / 2) * step;
+
+        for (int y = draw_start; y <= draw_end; y++)
+        {
+            int tex_y = (int)tex_pos & (tex->height - 1);
+            tex_pos += step;
+            int color = get_texture_pixel(tex, tex_x, tex_y);
+            if (side == 1)
+                color = (color >> 1) & 0x7F7F7F;
+            put_pixel_img(game, x, y, color);
         }
 
         // Draw floor
