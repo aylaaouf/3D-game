@@ -124,6 +124,7 @@ typedef struct s_game
     int         prev_mouse_x;
     t_keys      keys;
     t_texture  *wall_textures[4];
+	t_texture	*door_texture;
     t_texture  *floor_texture;
 	    char    *img_data;   // <--- add here if not using t_img
     int     bpp;
@@ -138,6 +139,7 @@ typedef struct s_ray
 	double	dir_y;
 	int		map_x;
 	int		map_y;
+	int		hit_type;
 	double	delta_dist_x;
 	double	delta_dist_y;
 	double	side_dist_x;

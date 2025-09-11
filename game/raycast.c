@@ -68,6 +68,7 @@ static void	perform_dda(t_game *game, t_ray *ray)
 	int hit;
 
 	hit = 0;
+	ray->hit_type = 0; // 0 = none, 1 = wall, 2 = door
 	while (!hit)
 	{
 		if (ray->side_dist_x < ray->side_dist_y)
@@ -83,7 +84,15 @@ static void	perform_dda(t_game *game, t_ray *ray)
 			ray->side = 1;
 		}
 		if (game->map->map[ray->map_y][ray->map_x] == '1')
+		{
 			hit = 1;
+			ray->hit_type = 1; // wall
+		}
+		else if (game->map->map[ray->map_y][ray->map_x] == 'P')
+		{
+			hit = 1;
+			ray->hit_type = 2; // door
+		}
 	}
 }
 
@@ -122,6 +131,8 @@ static void	draw_ceiling_and_floor(t_game *game, int x, t_ray *ray)
 
 static t_texture	*get_wall_texture(t_game *game, t_ray *ray)
 {
+	if (ray->hit_type == 2) // Door
+		return (game->door_texture);
 	if (ray->side == 0)
 	{
 		if (ray->dir_x > 0)
@@ -144,8 +155,8 @@ static void	draw_textured_wall(t_game *game, int x, t_ray *ray)
 	double		wall_x;
 	double		step;
 	double		tex_pos;
+	int			y, tex_y, color, tex_x;
 
-	int (y), tex_y, color, tex_x;
 	tex = get_wall_texture(game, ray);
 	if (ray->side == 0)
 		wall_x = game->player.y + ray->perp_wall_dist * ray->dir_y;
@@ -163,7 +174,7 @@ static void	draw_textured_wall(t_game *game, int x, t_ray *ray)
 		tex_y = (int)tex_pos & (tex->height - 1);
 		tex_pos += step;
 		color = get_texture_pixel(tex, tex_x, tex_y);
-		if (ray->side == 1)
+		if (ray->side == 1 && ray->hit_type != 2)
 			color = (color >> 1) & 0x7F7F7F;
 		put_pixel_img(game, x, y, color);
 		y++;

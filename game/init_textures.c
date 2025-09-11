@@ -18,9 +18,10 @@ int init_textures(t_game *game)
     game->wall_textures[1] = load_texture(game, "textures/wall_s.xpm"); // South
     game->wall_textures[2] = load_texture(game, "textures/wall_e.xpm");  // East
     game->wall_textures[3] = load_texture(game, "textures/wall_w.xpm");  // West
+	game->door_texture = load_texture(game, "textures/door.xpm");
 
     for (int i = 0; i < 4; i++) {
-        if (!game->wall_textures[i]) {
+        if (!game->wall_textures[i] || !game->door_texture) {
             printf("Error: Failed to load wall texture %d\n", i);
             return (0);
         }
