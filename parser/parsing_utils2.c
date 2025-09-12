@@ -14,7 +14,7 @@
 
 int	is_valid_char(char c)
 {
-	return (c == '0' || c == '1' || c == ' ' || is_player_char(c) || c == '\0');
+	return (c == '0' || c == '1' || c == ' ' || is_player_char(c) || c == 'P' || c == '\0');
 }
 
 static int	handle_map_line(char *line, char **map, int *i)

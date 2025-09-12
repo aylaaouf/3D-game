@@ -9,7 +9,6 @@
 /*   Updated: 2025/08/31 11:04:56 by ayelasef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "../cub3d.h"
 
 void draw_square_minimap(t_game *game, int x, int y, int color)
@@ -18,6 +17,7 @@ void draw_square_minimap(t_game *game, int x, int y, int color)
         for (int j = 0; j < MINIMAP_TILE_SIZE; j++)
             put_pixel_img(game, x + j, y + i, color);
 }
+
 void render_minimap(t_game *game)
 {
     for (int map_y = 0; map_y < game->map->height; map_y++)
@@ -29,6 +29,8 @@ void render_minimap(t_game *game)
             int color;
             if (tile == '1')
                 color = 0x888888; // wall
+            else if (tile == 'P' || tile == 'p')
+                color = 0xFFA500; // door (orange)
             else if (tile == '0' || tile == 'N' || tile == 'S' || tile == 'E' || tile == 'W')
                 color = 0xCCCCCC; // floor
             else
@@ -48,11 +50,12 @@ void render_minimap(t_game *game)
         for (int x = -2; x <= 2; x++)
             put_pixel_img(game, px + x, py + y, 0xFF0000);
 }
+
 int render_frame(t_game *game)
 {
-	game_loop(game);
+    game_loop(game);
     raycast(game);
-	render_minimap(game);
-	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
+    render_minimap(game);
+    mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
     return (0);
 }
