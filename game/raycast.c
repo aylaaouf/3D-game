@@ -9,7 +9,6 @@
 /*   Updated: 2025/07/29 21:59:42 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
-
 #include "../cub3d.h"
 
 void put_pixel_img(t_game *game, int x, int y, int color)
@@ -83,12 +82,13 @@ static void	perform_dda(t_game *game, t_ray *ray)
 			ray->map_y += ray->step_y;
 			ray->side = 1;
 		}
-		if (game->map->map[ray->map_y][ray->map_x] == '1')
+		char tile = game->map->map[ray->map_y][ray->map_x];
+		if (tile == '1')
 		{
 			hit = 1;
 			ray->hit_type = 1; // wall
 		}
-		else if (game->map->map[ray->map_y][ray->map_x] == 'P')
+		else if (tile == 'P' || tile == 'p')
 		{
 			hit = 1;
 			ray->hit_type = 2; // door
