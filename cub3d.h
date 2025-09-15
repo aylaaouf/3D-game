@@ -122,7 +122,9 @@ typedef struct s_game
     int         prev_px;
     int         prev_py;
     int         prev_mouse_x;
+	int hands_anim_frame;
     t_keys      keys;
+	t_texture *hands_img;
     t_texture  *wall_textures[4];
 	t_texture	*door_texture;
     t_texture  *floor_texture;
