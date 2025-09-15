@@ -9,6 +9,7 @@
 /*   Updated: 2025/07/29 12:11:37 by ayelasef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
+
 #include "../cub3d.h"
 
 void	move_through_tile(t_game *game, double *coord, double move, int axis)
@@ -17,56 +18,45 @@ void	move_through_tile(t_game *game, double *coord, double move, int axis)
 	int		map_y;
 	char	cell;
 	double	step;
+	double	target;
 
 	step = 0.2;
 	map_x = (int)game->player.x;
 	map_y = (int)game->player.y;
+	target = *coord + move;
+
 	if (axis == 0)
 	{
-		cell = game->map->map[(int)(*coord + move)][map_x];
+		cell = game->map->map[(int)target][map_x];
 		if (cell == '0')
-			*coord += move;
+			*coord = target;
 		else if (cell == 'P')
 		{
-			// Move TWO steps if next cell is also door
-			if (game->map->map[(int)(*coord + move + step)][map_x] == 'P')
+			// Slide through doors until no more doors ahead
+			while (cell == 'P')
 			{
-				if (move > 0)
-					*coord += move + step * 2;
-				else
-					*coord += move - step * 2;
+				target += (move > 0) ? step : -step;
+				cell = game->map->map[(int)target][map_x];
 			}
-			else
-			{
-				if (move > 0)
-					*coord += move + step;
-				else
-					*coord += move - step;
-			}
+			if (cell == '0')
+				*coord = target;
 		}
 	}
 	else if (axis == 1)
 	{
-		cell = game->map->map[map_y][(int)(*coord + move)];
+		cell = game->map->map[map_y][(int)target];
 		if (cell == '0')
-			*coord += move;
+			*coord = target;
 		else if (cell == 'P')
 		{
-			// Move TWO steps if next cell is also door
-			if (game->map->map[map_y][(int)(*coord + move + step)] == 'P')
+			// Slide through doors until no more doors ahead
+			while (cell == 'P')
 			{
-				if (move > 0)
-					*coord += move + step * 2;
-				else
-					*coord += move - step * 2;
+				target += (move > 0) ? step : -step;
+				cell = game->map->map[map_y][(int)target];
 			}
-			else
-			{
-				if (move > 0)
-					*coord += move + step;
-				else
-					*coord += move - step;
-			}
+			if (cell == '0')
+				*coord = target;
 		}
 	}
 }
