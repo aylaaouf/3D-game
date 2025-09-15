@@ -19,6 +19,47 @@ void put_pixel_img(t_game *game, int x, int y, int color)
 	*(unsigned int *)(game->img_data + idx) = color;
 }
 
+void	draw_hands(t_game *game)
+{
+	int	x;
+	int	y;
+	int	img_x;
+	int	img_y;
+	int	hands_width;
+	int	hands_height;
+	int	hands_screen_x;
+	int	hands_screen_y;
+	int	color;
+	double	breath_offset;
+
+	if (!game->hands_img)
+		return;
+	hands_width = game->hands_img->width;
+	hands_height = game->hands_img->height;
+	hands_screen_x = (SCREEN_WIDTH - hands_width) / 2;
+
+	breath_offset = sin(game->hands_anim_frame * 0.2) * 4.0;
+	hands_screen_y = SCREEN_HEIGHT - hands_height + (int)breath_offset;
+
+	y = 0;
+	while (y < hands_height)
+	{
+		x = 0;
+		while (x < hands_width)
+		{
+			img_x = x;
+			img_y = y;
+			color = get_texture_pixel(game->hands_img, img_x, img_y);
+			if ((color & 0x00FFFFFF) != 0xFF00FF && (color & 0x00FFFFFF) != 0x000000)
+				put_pixel_img(game, hands_screen_x + x, hands_screen_y + y, color);
+			x++;
+		}
+		y++;
+	}
+	game->hands_anim_frame++;
+}
+
+
 static void	init_ray_vars(t_game *game, int x, t_ray *ray)
 {
 	double camera_x;
@@ -203,4 +244,5 @@ void	raycast(t_game *game)
 		cast_single_ray(game, x);
 		x++;
 	}
+	draw_hands(game);
 }
