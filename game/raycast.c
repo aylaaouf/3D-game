@@ -204,8 +204,6 @@ static void	draw_textured_wall(t_game *game, int x, t_ray *ray)
 		wall_x = game->player.x + ray->perp_wall_dist * ray->dir_x;
 	wall_x -= floor(wall_x);
 	tex_x = (int)(wall_x * (double)tex->width);
-	/*if ((ray->side == 0 && ray->dir_x > 0) || (ray->side == 1 && ray->dir_y < 0))*/
-	/*	tex_x = tex->width - tex_x - 1;*/
 	step = 1.0 * tex->height / ray->line_height;
 	tex_pos = ((double)ray->draw_start - (double)SCREEN_HEIGHT / 2.0 + (double)ray->line_height / 2.0) * step;
 	y = ray->draw_start;
