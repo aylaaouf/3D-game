@@ -84,7 +84,7 @@ int	game_loop(t_game *game)
 	}
 	game->player.x = new_x;
 	game->player.y = new_y;
-	if (game->keys.a)
+	if (game->keys.d)
 	{
 		double	old_dir_x = game->player.dir_x;
 		game->player.dir_x = game->player.dir_x * cos(rot_speed)
@@ -97,7 +97,7 @@ int	game_loop(t_game *game)
 		game->player.plane_y = old_plane_x * sin(rot_speed)
 			+ game->player.plane_y * cos(rot_speed);
 	}
-	if (game->keys.d)
+	if (game->keys.a)
 	{
 		double	old_dir_x = game->player.dir_x;
 		game->player.dir_x = game->player.dir_x * cos(-rot_speed)
@@ -146,16 +146,16 @@ int	mouse_move(int x, int y, t_game *game)
 	double	sensitivity;
 	int		delta_x;
 	double	old_dir_x;
-	double	angle;
 	double	old_plane_x;
+	double	angle;
 
 	(void)y;
 	sensitivity = 0.0009;
 	delta_x = x - game->prev_mouse_x;
 	if (delta_x != 0)
 	{
+		angle = delta_x * sensitivity;
 		old_dir_x = game->player.dir_x;
-		angle = -delta_x * sensitivity;
 		game->player.dir_x = game->player.dir_x * cos(angle)
 			- game->player.dir_y * sin(angle);
 		game->player.dir_y = old_dir_x * sin(angle)
@@ -165,8 +165,8 @@ int	mouse_move(int x, int y, t_game *game)
 			- game->player.plane_y * sin(angle);
 		game->player.plane_y = old_plane_x * sin(angle)
 			+ game->player.plane_y * cos(angle);
-		mlx_mouse_move(game->mlx, game->win,
-			SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
+
+		mlx_mouse_move(game->mlx, game->win, SCREEN_WIDTH / 2, SCREEN_HEIGHT / 2);
 		game->prev_mouse_x = SCREEN_WIDTH / 2;
 	}
 	return (0);

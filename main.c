@@ -99,10 +99,10 @@ int main(int ac, char **av)
     }
 
     // Player direction and plane
-    game->player.dir_x = -1;
-    game->player.dir_y = 0;
-    game->player.plane_x = 0;
-    game->player.plane_y = 0.66;
+    /*game->player.dir_x = -1;*/
+    /*game->player.dir_y = 0;*/
+    /*game->player.plane_x = 0;*/
+    /*game->player.plane_y = 0.66;*/
 
     // Hooks and main loop
     mlx_loop_hook(game->mlx, render_frame, game);

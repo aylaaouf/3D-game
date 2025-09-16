@@ -105,10 +105,9 @@ static void	calculate_step_and_side_dist(t_game *game, t_ray *ray)
 
 static void	perform_dda(t_game *game, t_ray *ray)
 {
-	int hit;
-
+	int (hit);
 	hit = 0;
-	ray->hit_type = 0; // 0 = none, 1 = wall, 2 = door
+	ray->hit_type = 0;
 	while (!hit)
 	{
 		if (ray->side_dist_x < ray->side_dist_y)
@@ -196,8 +195,8 @@ static void	draw_textured_wall(t_game *game, int x, t_ray *ray)
 	double		wall_x;
 	double		step;
 	double		tex_pos;
-	int			y, tex_y, color, tex_x;
 
+	int			y, tex_y, color, tex_x;
 	tex = get_wall_texture(game, ray);
 	if (ray->side == 0)
 		wall_x = game->player.y + ray->perp_wall_dist * ray->dir_y;
@@ -205,10 +204,10 @@ static void	draw_textured_wall(t_game *game, int x, t_ray *ray)
 		wall_x = game->player.x + ray->perp_wall_dist * ray->dir_x;
 	wall_x -= floor(wall_x);
 	tex_x = (int)(wall_x * (double)tex->width);
-	if ((ray->side == 0 && ray->dir_x > 0) || (ray->side == 1 && ray->dir_y < 0))
-		tex_x = tex->width - tex_x - 1;
+	/*if ((ray->side == 0 && ray->dir_x > 0) || (ray->side == 1 && ray->dir_y < 0))*/
+	/*	tex_x = tex->width - tex_x - 1;*/
 	step = 1.0 * tex->height / ray->line_height;
-	tex_pos = (double)(ray->draw_start - SCREEN_HEIGHT / 2 + ray->line_height / 2) * step;
+	tex_pos = ((double)ray->draw_start - (double)SCREEN_HEIGHT / 2.0 + (double)ray->line_height / 2.0) * step;
 	y = ray->draw_start;
 	while (y <= ray->draw_end)
 	{

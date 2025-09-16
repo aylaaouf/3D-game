@@ -15,10 +15,10 @@ int	init_textures(t_game *game)
 {
 	int	i;
 
-	game->wall_textures[0] = load_texture(game, "textures/wall_n.xpm");
-	game->wall_textures[1] = load_texture(game, "textures/wall_s.xpm");
-	game->wall_textures[2] = load_texture(game, "textures/wall_e.xpm");
-	game->wall_textures[3] = load_texture(game, "textures/wall_w.xpm");
+	game->wall_textures[0] = load_texture(game, "textures/wall_s.xpm");
+	game->wall_textures[1] = load_texture(game, "textures/wall_n.xpm");
+	game->wall_textures[2] = load_texture(game, "textures/wall_w.xpm");
+	game->wall_textures[3] = load_texture(game, "textures/wall_e.xpm");
 	game->door_texture = load_texture(game, "textures/door.xpm");
 	game->hands_img = load_texture(game, "textures/hands.xpm");
 
