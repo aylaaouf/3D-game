@@ -6,56 +6,72 @@
 /*   By: ayelasef <ayelasef@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 21:32:43 by ayelasef          #+#    #+#             */
-/*   Updated: 2025/08/31 11:04:56 by ayelasef         ###   ########.fr       */
+/*   Updated: 2025/09/20 08:49:34 by ayelasef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 #include "../cub3d.h"
 
-void draw_square_minimap(t_game *game, int x, int y, int color)
+void	draw_square_minimap(t_game *game, int x, int y, int color)
 {
-    for (int i = 0; i < MINIMAP_TILE_SIZE; i++)
-        for (int j = 0; j < MINIMAP_TILE_SIZE; j++)
-            put_pixel_img(game, x + j, y + i, color);
+	int (i), j;
+	i = 0;
+	while (i < MINIMAP_TILE_SIZE)
+	{
+		j = 0;
+		while (j < MINIMAP_TILE_SIZE)
+		{
+			put_pixel_img(game, x + j, y + i, color);
+			j++;
+		}
+		i++;
+	}
 }
 
-void render_minimap(t_game *game)
+void	draw_player_minimap(t_game *game)
 {
-    for (int map_y = 0; map_y < game->map->height; map_y++)
-    {
-        int width = strlen(game->map->map[map_y]);
-        for (int map_x = 0; map_x < width; map_x++)
-        {
-            char tile = game->map->map[map_y][map_x];
-            int color;
-            if (tile == '1')
-                color = 0x888888; // wall
-            else if (tile == 'P' || tile == 'p')
-                color = 0xFFA500; // door (orange)
-            else if (tile == '0' || tile == 'N' || tile == 'S' || tile == 'E' || tile == 'W')
-                color = 0xCCCCCC; // floor
-            else
-                continue;
-            draw_square_minimap(
-                game,
-                MINIMAP_OFFSET_X + map_x * MINIMAP_TILE_SIZE,
-                MINIMAP_OFFSET_Y + map_y * MINIMAP_TILE_SIZE,
-                color
-            );
-        }
-    }
-    // Draw player as a red dot
-    int px = MINIMAP_OFFSET_X + (int)(game->player.x * MINIMAP_TILE_SIZE);
-    int py = MINIMAP_OFFSET_Y + (int)(game->player.y * MINIMAP_TILE_SIZE);
-    for (int y = -2; y <= 2; y++)
-        for (int x = -2; x <= 2; x++)
-            put_pixel_img(game, px + x, py + y, 0xFF0000);
+	int	px;
+	int	py;
+	int	x;
+	int	y;
+
+	px = MINIMAP_OFFSET_X + (int)(game->player.x * MINIMAP_TILE_SIZE);
+	py = MINIMAP_OFFSET_Y + (int)(game->player.y * MINIMAP_TILE_SIZE);
+	y = -2;
+	while (y <= 2)
+	{
+		x = -2;
+		while (x <= 2)
+		{
+			put_pixel_img(game, px + x, py + y, 0xFF0000);
+			x++;
+		}
+		y++;
+	}
 }
 
-int render_frame(t_game *game)
+int	get_minimap_tile_color(char tile)
 {
-    game_loop(game);
-    raycast(game);
-    render_minimap(game);
-    mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
-    return (0);
+	if (tile == '1')
+		return (0x888888);
+	else if (tile == 'P' || tile == 'p')
+		return (0xFFA500);
+	else if (tile == '0' || tile == 'N' || tile == 'S'
+		|| tile == 'E' || tile == 'W')
+		return (0xCCCCCC);
+	return (-1);
+}
+
+void	render_minimap(t_game *game)
+{
+	render_minimap_tiles(game);
+	draw_player_minimap_utils(game);
+}
+
+int	render_frame(t_game *game)
+{
+	game_loop(game);
+	raycast(game);
+	render_minimap(game);
+	mlx_put_image_to_window(game->mlx, game->win, game->img, 0, 0);
+	return (0);
 }
