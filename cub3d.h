@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 05:53:14 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/08/31 10:57:14 by ayelasef         ###   ########.fr       */
+/*   Updated: 2025/09/20 09:36:19 by ayelasef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -154,6 +154,20 @@ typedef struct s_ray
 	int		draw_start;
 	int		draw_end;
 }	t_ray;
+
+typedef struct s_wall_column
+{
+	t_texture	*tex;
+	int			tex_x;
+	double		step;
+	double		tex_pos;
+}	t_wall_column;
+
+typedef struct s_hands_pixel
+{
+	int	screen_x;
+	int	screen_y;
+}	t_hands_pixel;
 // init
 int				rgb(int r, int g, int b);
 void			init_color(t_color *color, int r, int g, int b);
@@ -193,12 +207,27 @@ void			*ft_calloc(size_t count, size_t size);
 void put_pixel_img(t_game *game, int x, int y, int color);
 
 void			raycast(t_game *game);
+
+//raycast_utils
+void	perform_dda(t_game *game, t_ray *ray);
+void	calculate_step_and_side_dist(t_game *game, t_ray *ray);
+void	init_ray_vars(t_game *game, int x, t_ray *ray);
+void	draw_ceiling_and_floor(t_game *game, int x, t_ray *ray);
+void	calculate_wall_distance(t_game *game, t_ray *ray);
+void	draw_hands(t_game *game);
+t_texture	*get_wall_texture(t_game *game, t_ray *ray);
 // minimap
 
+int	get_minimap_tile_color(char tile);
+void	draw_square_minimap(t_game *game, int x, int y, int color);
 void			draw_square(t_game *game, int x, int y, int color);
 int				render_frame(t_game *game);
 void			render_minimap(t_game *game);
 void draw_square_texture(t_game *game, int x, int y, t_texture *texture);
+//minimap_utils
+
+void	draw_player_minimap_utils(t_game *game);
+void	render_minimap_tiles(t_game *game);
 // move_player
 
 int handle_key_release(int keycode, t_game *game);
