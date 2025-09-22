@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 05:53:14 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/09/22 03:10:13 by ayelasef         ###   ########.fr       */
+/*   Updated: 2025/09/22 04:46:21 by ayelasef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,18 +23,18 @@
 # include <string.h>
 # include <unistd.h>
 
-# define USAGE_ERR        "Error: Usage — correct format is ./cub3d <map.cub>"
-# define INVALID_FLOOR    "Error: Invalid floor RGB color format"
-# define INVALID_CEILING  "Error: Invalid ceiling RGB color format"
-# define MAP_NOT_CLOSED   "Error: Map is not properly enclosed by walls"
-# define NO_PLAYER_FOUND  "Error: Player starting position is missing in the map"
-# define MULTI_PLAYERS    "Error: Multiple player positions found in the map"
-# define INVALID_PATH     "Error: Invalid map path or unreachable area"
-# define INVALID_EXT      "Error: File extension must be .cub"
-# define EMPTY_MAP_LINE   "Error: Empty line found inside the map data"
-# define MAP_READ_FAIL    "Error: Failed to read the map file"
-# define DUPLICATE_ID     "Error: Duplicate identifier found"
-# define MISSING_ID       "Error: One or more required identifiers are missing"
+# define USAGE_ERR "Error: Usage — correct format is ./cub3d <map.cub>"
+# define INVALID_FLOOR "Error: Invalid floor RGB color format"
+# define INVALID_CEILING "Error: Invalid ceiling RGB color format"
+# define MAP_NOT_CLOSED "Error: Map is not properly enclosed by walls"
+# define NO_PLAYER_FOUND "Error: Player starting position is missing in the map"
+# define MULTI_PLAYERS "Error: Multiple player positions found in the map"
+# define INVALID_PATH "Error: Invalid map path or unreachable area"
+# define INVALID_EXT "Error: File extension must be .cub"
+# define EMPTY_MAP_LINE "Error: Empty line found inside the map data"
+# define MAP_READ_FAIL "Error: Failed to read the map file"
+# define DUPLICATE_ID "Error: Duplicate identifier found"
+# define MISSING_ID "Error: One or more required identifiers are missing"
 # define INVALID_CHAR_MAP "Error: Invalid character detected in the map"
 
 # define MOVE_STEP 0.1
@@ -43,117 +43,118 @@
 # define TILE_SIZE 8 // minimap tile size in pixels
 # define MINIMAP_OFFSET_X 10
 # define MINIMAP_OFFSET_Y 10
-#define MINIMAP_TILE_SIZE 8
+# define MINIMAP_TILE_SIZE 8
 # define MINIMAP_WIDTH 10  // tiles
 # define MINIMAP_HEIGHT 10 // tiles
-#define RESERVED_WIDTH 0
+# define RESERVED_WIDTH 0
 typedef struct s_map
 {
-    char    **map;
-    int     height;
-    int     last_width;
-}   t_map;
+	char		**map;
+	int			height;
+	int			last_width;
+}				t_map;
 
 typedef struct s_color
 {
-    int     r;
-    int     g;
-    int     b;
-}   t_color;
+	int			r;
+	int			g;
+	int			b;
+}				t_color;
 
 typedef struct s_texture
 {
-    void    *img;
-    char    *data;
-    int     width;
-    int     height;
-    int     bpp;
-    int     size_line;
-    int     endian;
-}   t_texture;
+	void		*img;
+	char		*data;
+	int			width;
+	int			height;
+	int			bpp;
+	int			size_line;
+	int			endian;
+}				t_texture;
 
 typedef struct s_config
 {
-    char    *no;
-    char    *so;
-    char    *we;
-    char    *ea;
-    char    *f;
-    char    *c;
-    t_color floor;
-    t_color ceil;
-}   t_config;
+	char		*no;
+	char		*so;
+	char		*we;
+	char		*ea;
+	char		*f;
+	char		*c;
+	t_color		floor;
+	t_color		ceil;
+}				t_config;
 
 typedef struct s_player
 {
-    double  x;
-    double  y;
-    double  dir_x;
-    double  dir_y;
-    double  plane_x;
-    double  plane_y;
-}   t_player;
+	double		x;
+	double		y;
+	double		dir_x;
+	double		dir_y;
+	double		plane_x;
+	double		plane_y;
+}				t_player;
 
-typedef struct s_keys {
-    int w;
-    int s;
-    int a;
-    int d;
-}   t_keys;
+typedef struct s_keys
+{
+	int			w;
+	int			s;
+	int			a;
+	int			d;
+}				t_keys;
 
 typedef struct s_img
 {
-    void    *mlx_img;
-    char    *img_data;
-    int     bpp;
-    int     size_line;
-    int     endian;
-}   t_img;
+	void		*mlx_img;
+	char		*img_data;
+	int			bpp;
+	int			size_line;
+	int			endian;
+}				t_img;
 
 typedef struct s_game
 {
-    t_map      *map;
-    t_config   *config;
-    t_player    player;
-    void       *mlx;
-    void       *win;
-    double      ray_dir_x;
-    double      ray_dir_y;
-    int         prev_px;
-    int         prev_py;
-    int         prev_mouse_x;
-	int hands_anim_frame;
-    t_keys      keys;
-	t_texture *hands_img;
-    t_texture  *wall_textures[4];
+	t_map		*map;
+	t_config	*config;
+	t_player	player;
+	void		*mlx;
+	void		*win;
+	double		ray_dir_x;
+	double		ray_dir_y;
+	int			prev_px;
+	int			prev_py;
+	int			prev_mouse_x;
+	int			hands_anim_frame;
+	t_keys		keys;
+	t_texture	*hands_img;
+	t_texture	*wall_textures[4];
 	t_texture	*door_texture;
-    t_texture  *floor_texture;
-	    char    *img_data;   // <--- add here if not using t_img
-    int     bpp;
-    int     size_line;
-    int     endian;
-    t_img      *img;
-}   t_game;
+	t_texture	*floor_texture;
+	char *img_data; // <--- add here if not using t_img
+	int			bpp;
+	int			size_line;
+	int			endian;
+	t_img		*img;
+}				t_game;
 
 typedef struct s_ray
 {
-	double	dir_x;
-	double	dir_y;
-	int		map_x;
-	int		map_y;
-	int		hit_type;
-	double	delta_dist_x;
-	double	delta_dist_y;
-	double	side_dist_x;
-	double	side_dist_y;
-	int		step_x;
-	int		step_y;
-	int		side;
-	double	perp_wall_dist;
-	int		line_height;
-	int		draw_start;
-	int		draw_end;
-}	t_ray;
+	double		dir_x;
+	double		dir_y;
+	int			map_x;
+	int			map_y;
+	int			hit_type;
+	double		delta_dist_x;
+	double		delta_dist_y;
+	double		side_dist_x;
+	double		side_dist_y;
+	int			step_x;
+	int			step_y;
+	int			side;
+	double		perp_wall_dist;
+	int			line_height;
+	int			draw_start;
+	int			draw_end;
+}				t_ray;
 
 typedef struct s_wall_column
 {
@@ -161,21 +162,28 @@ typedef struct s_wall_column
 	int			tex_x;
 	double		step;
 	double		tex_pos;
-}	t_wall_column;
+}				t_wall_column;
 
 typedef struct s_hands_pixel
 {
-	int	screen_x;
-	int	screen_y;
-}	t_hands_pixel;
+	int			screen_x;
+	int			screen_y;
+}				t_hands_pixel;
 
 typedef struct s_tile_move
 {
-	double	*coord;
-	double	move;
-	double	step;
-	int		map_index;
-}	t_tile_move;
+	double		*coord;
+	double		move;
+	double		step;
+	int			map_index;
+}				t_tile_move;
+typedef struct s_pixel_texture
+{
+	int			x;
+	int			y;
+	int			tex_x;
+	int			tex_y;
+}				t_pixel_texture;
 // init
 int				rgb(int r, int g, int b);
 void			init_color(t_color *color, int r, int g, int b);
@@ -212,55 +220,56 @@ int				ft_atoi(const char *str);
 void			free_2d(char **args);
 void			*ft_calloc(size_t count, size_t size);
 // raycast
-void put_pixel_img(t_game *game, int x, int y, int color);
+void			put_pixel_img(t_game *game, int x, int y, int color);
 
 void			raycast(t_game *game);
 
-//raycast_utils
-void	perform_dda(t_game *game, t_ray *ray);
-void	calculate_step_and_side_dist(t_game *game, t_ray *ray);
-void	init_ray_vars(t_game *game, int x, t_ray *ray);
-void	draw_ceiling_and_floor(t_game *game, int x, t_ray *ray);
-void	calculate_wall_distance(t_game *game, t_ray *ray);
-void	draw_hands(t_game *game);
-t_texture	*get_wall_texture(t_game *game, t_ray *ray);
+// raycast_utils
+void			perform_dda(t_game *game, t_ray *ray);
+void			calculate_step_and_side_dist(t_game *game, t_ray *ray);
+void			init_ray_vars(t_game *game, int x, t_ray *ray);
+void			draw_ceiling_and_floor(t_game *game, int x, t_ray *ray);
+void			calculate_wall_distance(t_game *game, t_ray *ray);
+void			draw_hands(t_game *game);
+t_texture		*get_wall_texture(t_game *game, t_ray *ray);
 // minimap
 
-int	get_minimap_tile_color(char tile);
-void	draw_square_minimap(t_game *game, int x, int y, int color);
+int				get_minimap_tile_color(char tile);
+void			draw_square_minimap(t_game *game, int x, int y, int color);
 void			draw_square(t_game *game, int x, int y, int color);
 int				render_frame(t_game *game);
 void			render_minimap(t_game *game);
-void draw_square_texture(t_game *game, int x, int y, t_texture *texture);
-//minimap_utils
+void			draw_square_texture(t_game *game, int x, int y,
+					t_texture *texture);
+// minimap_utils
 
-void	draw_player_minimap_utils(t_game *game);
-void	render_minimap_tiles(t_game *game);
+void			draw_player_minimap_utils(t_game *game);
+void			render_minimap_tiles(t_game *game);
 // move_player
 
-void	move_through_tile(t_game *game, double *coord, double move, int axis);
-int handle_key_release(int keycode, t_game *game);
-int handle_key_press(int keycode, t_game *game);
-int game_loop(t_game *game);
-int	mouse_move(int x, int y, t_game *game);
+void			move_through_tile(t_game *game, double *coord, double move,
+					int axis);
+int				handle_key_release(int keycode, t_game *game);
+int				handle_key_press(int keycode, t_game *game);
+int				game_loop(t_game *game);
+int				mouse_move(int x, int y, t_game *game);
 int				handle_keypress(int keycode, t_game *game);
-//move_player_utils
+// move_player_utils
 
-void	move_through_tile_y(t_game *game, t_tile_move *move_info);
-void	move_through_tile_x(t_game *game, t_tile_move *move_info);
+void			move_through_tile_y(t_game *game, t_tile_move *move_info);
+void			move_through_tile_x(t_game *game, t_tile_move *move_info);
 
-void	apply_rotation(t_game *game, double angle);
-void	handle_move_keys(t_game *game, double *new_x, double *new_y,
-		double move_speed);
-void	handle_rotate_right(t_game *game, double rot_speed);
-void	handle_rotate_left(t_game *game, double rot_speed);
-//inir_textures
+void			apply_rotation(t_game *game, double angle);
+void			handle_move_keys(t_game *game, double *new_x, double *new_y,
+					double move_speed);
+void			handle_rotate_right(t_game *game, double rot_speed);
+void			handle_rotate_left(t_game *game, double rot_speed);
+// inir_textures
 
-int init_textures(t_game *game);
-//texture_rendering
+int				init_textures(t_game *game);
+// texture_rendering
 
-t_texture *load_texture(t_game *game, char *path);
-int get_texture_pixel(t_texture *texture, int x, int y);
-void put_pixel_texture(t_game *game, int x, int y, t_texture *texture, int tex_x, int tex_y);
-void put_pixel(t_game *game, int x, int y, int color);
+t_texture		*load_texture(t_game *game, char *path);
+int				get_texture_pixel(t_texture *texture, int x, int y);
+void			put_pixel(t_game *game, int x, int y, int color);
 #endif
