@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils_5.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayelasef <ayelasef@1337.ma>                +#+  +:+       +#+        */
+/*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 11:32:26 by ayelasef          #+#    #+#             */
-/*   Updated: 2025/09/22 12:01:41 by ayelasef         ###   ########.fr       */
+/*   Updated: 2025/09/22 14:23:29 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ void	free_map(t_map *map)
 			i++;
 		}
 		free(map->map);
+		map->map = NULL;
 	}
 }
 

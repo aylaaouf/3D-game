@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 06:21:11 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/30 16:41:12 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/09/22 14:22:52 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,6 +128,9 @@ int	parser(int ac, char **av, t_game *game)
 	if (!game->map->map)
 		return (1);
 	if (parse_map(game))
-		return (free_2d(game->map->map), 1);
+	{
+		free_2d(game->map->map);
+    	return ((game->map->map = NULL), 1);
+	}
 	return (0);
 }
