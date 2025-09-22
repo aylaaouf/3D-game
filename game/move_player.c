@@ -6,7 +6,7 @@
 /*   By: ayelasef <ayelasef@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 21:55:36 by ayelasef          #+#    #+#             */
-/*   Updated: 2025/09/22 03:11:22 by ayelasef         ###   ########.fr       */
+/*   Updated: 2025/09/22 11:45:21 by ayelasef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,10 @@ int	game_loop(t_game *game)
 int	handle_key_press(int keycode, t_game *game)
 {
 	if (keycode == 65307)
+	{
+		free_game_resources(game);
 		exit(0);
+	}
 	if (keycode == 'w' || keycode == 65362)
 		game->keys.w = 1;
 	if (keycode == 's' || keycode == 65364)

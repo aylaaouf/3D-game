@@ -6,7 +6,7 @@
 /*   By: ayelasef <ayelasef@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 11:32:26 by ayelasef          #+#    #+#             */
-/*   Updated: 2025/09/22 11:33:09 by ayelasef         ###   ########.fr       */
+/*   Updated: 2025/09/22 12:01:41 by ayelasef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,8 @@
 
 void	free_config(t_config *config)
 {
+	if (!config)
+		return ;
 	free(config->no);
 	free(config->so);
 	free(config->we);
@@ -22,15 +24,46 @@ void	free_config(t_config *config)
 	free(config->c);
 }
 
+void	free_map(t_map *map)
+{
+	int	i;
+
+	if (!map)
+		return ;
+	if (map->map)
+	{
+		i = 0;
+		while (i < map->height)
+		{
+			free(map->map[i]);
+			i++;
+		}
+		free(map->map);
+	}
+}
+
 void	free_game_resources(t_game *game)
 {
-	free_config(game->config);
-	free(game->map);
-	free(game->config);
+	if (!game)
+		return ;
 	if (game->img)
 		mlx_destroy_image(game->mlx, game->img);
 	if (game->win)
 		mlx_destroy_window(game->mlx, game->win);
+	free_wall_textures(game);
+	free_hand_texture(game);
+	free_door_texture(game);
+	free_floor_texture(game);
+	if (game->config)
+	{
+		free_config(game->config);
+		free(game->config);
+	}
+	if (game->map)
+	{
+		free_map(game->map);
+		free(game->map);
+	}
 	free(game);
 }
 
