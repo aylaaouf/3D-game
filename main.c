@@ -36,7 +36,7 @@ int	init_graphics(t_game *game)
 	game->mlx = mlx_init();
 	if (!game->mlx)
 	{
-		fprintf(stderr, "MLX init failed\n");
+		ft_putendl_fd("MLX init failed", 2);
 		return (0);
 	}
 	if (!init_window_and_image(game))
@@ -48,7 +48,7 @@ int	init_all_textures(t_game *game)
 {
 	if (!init_textures(game))
 	{
-		printf("Failed to initialize textures\n");
+		ft_putendl_fd("Failed to initialize textures", 2);
 		return (0);
 	}
 	return (1);
