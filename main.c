@@ -17,13 +17,13 @@ int	init_window_and_image(t_game *game)
 	game->win = mlx_new_window(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT, "cub3D");
 	if (!game->win)
 	{
-		fprintf(stderr, "Window creation failed\n");
+		ft_putendl_fd("Window creation failed", 2);
 		return (0);
 	}
 	game->img = mlx_new_image(game->mlx, SCREEN_WIDTH, SCREEN_HEIGHT);
 	if (!game->img)
 	{
-		fprintf(stderr, "Image buffer creation failed\n");
+		ft_putendl_fd("Image buffer creation failed", 2);
 		return (0);
 	}
 	game->img_data = mlx_get_data_addr(game->img, &game->bpp, &game->size_line,
