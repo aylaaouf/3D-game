@@ -73,8 +73,8 @@ size_t	ft_strlcpy(char *dst, const char *src, size_t dstsize)
 
 void	*ft_calloc(size_t count, size_t size)
 {
-	size_t			total;
-	void			*ptr;
+	size_t	total;
+	void	*ptr;
 
 	if (size != 0 && (count > SIZE_MAX / size))
 		return (NULL);
