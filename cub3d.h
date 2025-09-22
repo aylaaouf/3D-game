@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 05:53:14 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/09/20 09:36:19 by ayelasef         ###   ########.fr       */
+/*   Updated: 2025/09/22 03:10:13 by ayelasef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -168,6 +168,14 @@ typedef struct s_hands_pixel
 	int	screen_x;
 	int	screen_y;
 }	t_hands_pixel;
+
+typedef struct s_tile_move
+{
+	double	*coord;
+	double	move;
+	double	step;
+	int		map_index;
+}	t_tile_move;
 // init
 int				rgb(int r, int g, int b);
 void			init_color(t_color *color, int r, int g, int b);
@@ -230,11 +238,22 @@ void	draw_player_minimap_utils(t_game *game);
 void	render_minimap_tiles(t_game *game);
 // move_player
 
+void	move_through_tile(t_game *game, double *coord, double move, int axis);
 int handle_key_release(int keycode, t_game *game);
 int handle_key_press(int keycode, t_game *game);
 int game_loop(t_game *game);
 int	mouse_move(int x, int y, t_game *game);
 int				handle_keypress(int keycode, t_game *game);
+//move_player_utils
+
+void	move_through_tile_y(t_game *game, t_tile_move *move_info);
+void	move_through_tile_x(t_game *game, t_tile_move *move_info);
+
+void	apply_rotation(t_game *game, double angle);
+void	handle_move_keys(t_game *game, double *new_x, double *new_y,
+		double move_speed);
+void	handle_rotate_right(t_game *game, double rot_speed);
+void	handle_rotate_left(t_game *game, double rot_speed);
 //inir_textures
 
 int init_textures(t_game *game);
