@@ -5,7 +5,8 @@ SRC:= main.c parser/parsing.c parser/parsing_utils.c parser/parsing_utils2.c \
 		utils/utils_3.c utils/utils_4.c gnl/get_next_line.c gnl/get_next_line_utils.c \
 		game/minimap.c game/move_player.c game/raycast.c game/init.c  game/init_textures.c game/texture_rendering.c \
 		game/raycast_utils_2.c game/raycast_utils.c game/minimap_utils.c \
-		game/init_2.c game/move_player_utils.c  game/move_player_utils_2.c
+		game/init_2.c game/move_player_utils.c  game/move_player_utils_2.c \
+		utils/utils_5.c
 
 CC := cc
 
