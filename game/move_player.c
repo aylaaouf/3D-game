@@ -6,7 +6,7 @@
 /*   By: ayelasef <ayelasef@1337.ma>                +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 21:55:36 by ayelasef          #+#    #+#             */
-/*   Updated: 2025/09/18 11:45:58 by ayelasef         ###   ########.fr       */
+/*   Updated: 2025/09/22 03:11:22 by ayelasef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,47 +14,26 @@
 
 void	move_through_tile(t_game *game, double *coord, double move, int axis)
 {
-	int		map_x;
-	int		map_y;
-	char	cell;
-	double	step;
-	double	target;
+	int			map_x;
+	int			map_y;
+	double		step;
+	t_tile_move	move_info;
 
 	step = 0.2;
 	map_x = (int)game->player.x;
 	map_y = (int)game->player.y;
-	target = *coord + move;
+	move_info.coord = coord;
+	move_info.move = move;
+	move_info.step = step;
 	if (axis == 0)
 	{
-		cell = game->map->map[(int)target][map_x];
-		if (cell == '0')
-			*coord = target;
-		else if (cell == 'P')
-		{
-			while (cell == 'P')
-			{
-				target += (move > 0) ? step : -step;
-				cell = game->map->map[(int)target][map_x];
-			}
-			if (cell == '0')
-				*coord = target;
-		}
+		move_info.map_index = map_x;
+		move_through_tile_x(game, &move_info);
 	}
 	else if (axis == 1)
 	{
-		cell = game->map->map[map_y][(int)target];
-		if (cell == '0')
-			*coord = target;
-		else if (cell == 'P')
-		{
-			while (cell == 'P')
-			{
-				target += (move > 0) ? step : -step;
-				cell = game->map->map[map_y][(int)target];
-			}
-			if (cell == '0')
-				*coord = target;
-		}
+		move_info.map_index = map_y;
+		move_through_tile_y(game, &move_info);
 	}
 }
 
@@ -64,51 +43,18 @@ int	game_loop(t_game *game)
 	double	rot_speed;
 	double	new_x;
 	double	new_y;
-	double	old_dir_x;
-	double	old_plane_x;
 
 	move_speed = 0.09;
 	rot_speed = 0.05;
 	new_x = game->player.x;
 	new_y = game->player.y;
-	if (game->keys.w)
-	{
-		move_through_tile(game, &new_y, game->player.dir_y * move_speed, 0);
-		move_through_tile(game, &new_x, game->player.dir_x * move_speed, 1);
-	}
-	if (game->keys.s)
-	{
-		move_through_tile(game, &new_y, -game->player.dir_y * move_speed, 0);
-		move_through_tile(game, &new_x, -game->player.dir_x * move_speed, 1);
-	}
+	handle_move_keys(game, &new_x, &new_y, move_speed);
 	game->player.x = new_x;
 	game->player.y = new_y;
 	if (game->keys.d)
-	{
-		old_dir_x = game->player.dir_x;
-		game->player.dir_x = game->player.dir_x * cos(rot_speed)
-			- game->player.dir_y * sin(rot_speed);
-		game->player.dir_y = old_dir_x * sin(rot_speed) + game->player.dir_y
-			* cos(rot_speed);
-		old_plane_x = game->player.plane_x;
-		game->player.plane_x = game->player.plane_x * cos(rot_speed)
-			- game->player.plane_y * sin(rot_speed);
-		game->player.plane_y = old_plane_x * sin(rot_speed)
-			+ game->player.plane_y * cos(rot_speed);
-	}
+		handle_rotate_right(game, rot_speed);
 	if (game->keys.a)
-	{
-		old_dir_x = game->player.dir_x;
-		game->player.dir_x = game->player.dir_x * cos(-rot_speed)
-			- game->player.dir_y * sin(-rot_speed);
-		game->player.dir_y = old_dir_x * sin(-rot_speed) + game->player.dir_y
-			* cos(-rot_speed);
-		old_plane_x = game->player.plane_x;
-		game->player.plane_x = game->player.plane_x * cos(-rot_speed)
-			- game->player.plane_y * sin(-rot_speed);
-		game->player.plane_y = old_plane_x * sin(-rot_speed)
-			+ game->player.plane_y * cos(-rot_speed);
-	}
+		handle_rotate_left(game, rot_speed);
 	return (0);
 }
 
@@ -143,10 +89,8 @@ int	handle_key_release(int keycode, t_game *game)
 int	mouse_move(int x, int y, t_game *game)
 {
 	double	sensitivity;
-	int		delta_x;
-	double	old_dir_x;
-	double	old_plane_x;
 	double	angle;
+	int		delta_x;
 
 	(void)y;
 	sensitivity = 0.0009;
@@ -154,16 +98,7 @@ int	mouse_move(int x, int y, t_game *game)
 	if (delta_x != 0)
 	{
 		angle = delta_x * sensitivity;
-		old_dir_x = game->player.dir_x;
-		game->player.dir_x = game->player.dir_x * cos(angle)
-			- game->player.dir_y * sin(angle);
-		game->player.dir_y = old_dir_x * sin(angle) + game->player.dir_y
-			* cos(angle);
-		old_plane_x = game->player.plane_x;
-		game->player.plane_x = game->player.plane_x * cos(angle)
-			- game->player.plane_y * sin(angle);
-		game->player.plane_y = old_plane_x * sin(angle) + game->player.plane_y
-			* cos(angle);
+		apply_rotation(game, angle);
 		mlx_mouse_move(game->mlx, game->win, SCREEN_WIDTH / 2, SCREEN_HEIGHT
 			/ 2);
 		game->prev_mouse_x = SCREEN_WIDTH / 2;
