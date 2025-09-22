@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 05:53:14 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/09/22 04:46:21 by ayelasef         ###   ########.fr       */
+/*   Updated: 2025/09/22 11:35:17 by ayelasef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@
 # define MINIMAP_WIDTH 10  // tiles
 # define MINIMAP_HEIGHT 10 // tiles
 # define RESERVED_WIDTH 0
+
 typedef struct s_map
 {
 	char		**map;
@@ -129,7 +130,7 @@ typedef struct s_game
 	t_texture	*wall_textures[4];
 	t_texture	*door_texture;
 	t_texture	*floor_texture;
-	char *img_data; // <--- add here if not using t_img
+	char		*img_data;
 	int			bpp;
 	int			size_line;
 	int			endian;
@@ -219,6 +220,9 @@ char			**ft_split(char const *s, char c);
 int				ft_atoi(const char *str);
 void			free_2d(char **args);
 void			*ft_calloc(size_t count, size_t size);
+void			free_config(t_config *config);
+void			free_game_resources(t_game *game);
+int				init_game(int ac, char **av, t_game **game);
 // raycast
 void			put_pixel_img(t_game *game, int x, int y, int color);
 
