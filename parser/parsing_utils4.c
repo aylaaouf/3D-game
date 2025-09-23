@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 17:38:44 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/09/22 14:17:00 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/09/22 15:12:15 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ int	should_skip_line(char *line)
 
 int	is_map_line(char *line)
 {
-	return (line[0] == '1' || line[0] == ' ');
+	return (line[0] == '1');
 }
 
 int	valid_door(t_game *game)

@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 17:20:45 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/30 16:38:43 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/09/22 15:15:53 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,12 +43,12 @@ static int	handle_map_line(char *line, char **map, int *i)
 
 static int	process_map_line(char *line, char **map, int *i, int *map_started)
 {
-	if (!*map_started && !(line[0] == '1' || line[0] == ' '))
+	if (!*map_started && !(line[0] == '1'))
 	{
 		free(line);
 		return (0);
 	}
-	if (!*map_started && (line[0] == '1' || line[0] == ' '))
+	if (!*map_started && (line[0] == '1'))
 		*map_started = 1;
 	if (*map_started)
 	{

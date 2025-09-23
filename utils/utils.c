@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 05:52:41 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/27 16:10:08 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/09/22 15:09:54 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,11 +51,18 @@ char	*ft_strrchr(const char *s, int c)
 int	ft_strncmp(const char *s1, const char *s2, size_t n)
 {
 	size_t	i;
+	size_t	y;
 
 	i = 0;
-	while (i < n && s1[i] == s2[i] && s1[i] && s2[i])
+	y = 0;
+	while (s1[y] == ' ')
+		y++;
+	while (i < n && s1[y] == s2[i] && s1[y] && s2[i])
+	{
+		y++;
 		i++;
+	}
 	if (i == n)
 		return (0);
-	return ((unsigned char)s1[i] - (unsigned char)s2[i]);
+	return ((unsigned char)s1[y] - (unsigned char)s2[i]);
 }

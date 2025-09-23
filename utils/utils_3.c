@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/27 16:08:51 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/07/27 16:09:26 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/09/22 15:14:50 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,6 +44,8 @@ void	free_2d(char **args)
 	int	i;
 
 	i = 0;
+	if (!args || !*args)
+		return ;
 	while (args[i])
 	{
 		free(args[i]);
