@@ -6,11 +6,27 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 06:21:11 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/09/22 16:10:39 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/09/23 23:35:15 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+int	ft_isdegit(char *str)
+{
+	int i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!((str[i] >= '0' && str[i] <= '9') || str[i] == ','))
+			return (1);
+		i++;
+	}
+	if (i > 0 && str[i - 1] == ',')
+		return (1);
+	return (0);
+}
 
 int	parse_rgb(char *str, t_color *color)
 {
@@ -18,6 +34,8 @@ int	parse_rgb(char *str, t_color *color)
 
 	int (r), (g), b;
 	if (!str || !color)
+		return (1);
+	if (ft_isdegit(str))
 		return (1);
 	split_result = ft_split(str, ',');
 	if (!split_result || !split_result[0] || !split_result[1]
@@ -130,7 +148,7 @@ int	parser(int ac, char **av, t_game *game)
 	if (parse_map(game))
 	{
 		free_2d(game->map->map);
-    	return ((game->map->map = NULL), 1);
+		return ((game->map->map = NULL), 1);
 	}
 	return (0);
 }
