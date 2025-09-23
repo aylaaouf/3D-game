@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 17:38:47 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/09/22 15:11:13 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/09/23 23:39:44 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,10 @@ static int	process_identifier(char *line, t_game *game, int *flag)
 		*flag += set_identifier(&game->config->f, line, 2);
 	else if (!ft_strncmp(line, "C ", 2))
 		*flag += set_identifier(&game->config->c, line, 2);
+	else if (!ft_strncmp(line, "1", 1))
+		return (0);
+	else
+		return (ft_putendl_fd(INVALID_CHAR_MAP, 2), 1);
 	if (*flag > 6)
 		return (ft_putendl_fd(DUPLICATE_ID, 2), 1);
 	return (0);
