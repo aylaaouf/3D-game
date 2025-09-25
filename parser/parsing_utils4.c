@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 17:38:44 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/09/22 15:12:15 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/09/23 22:10:07 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,8 +24,7 @@ int	is_map_line(char *line)
 
 int	valid_door(t_game *game)
 {
-	int	(i), (j);
-
+	int	i, (j);
 	i = 0;
 	game->map->height = ft_strlen_2d(game->map->map);
 	while (i < game->map->height)
