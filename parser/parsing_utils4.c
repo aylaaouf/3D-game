@@ -6,11 +6,27 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 17:38:44 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/09/23 22:10:07 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/09/26 05:59:31 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+int	ft_isdegit(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!((str[i] >= '0' && str[i] <= '9') || str[i] == ','))
+			return (1);
+		i++;
+	}
+	if (i > 0 && str[i - 1] == ',')
+		return (1);
+	return (0);
+}
 
 int	should_skip_line(char *line)
 {
@@ -24,7 +40,7 @@ int	is_map_line(char *line)
 
 int	valid_door(t_game *game)
 {
-	int	i, (j);
+	int		i, (j);
 	i = 0;
 	game->map->height = ft_strlen_2d(game->map->map);
 	while (i < game->map->height)

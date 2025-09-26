@@ -6,27 +6,11 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 06:21:11 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/09/23 23:35:15 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/09/26 05:59:41 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
-
-int	ft_isdegit(char *str)
-{
-	int i;
-
-	i = 0;
-	while (str[i])
-	{
-		if (!((str[i] >= '0' && str[i] <= '9') || str[i] == ','))
-			return (1);
-		i++;
-	}
-	if (i > 0 && str[i - 1] == ',')
-		return (1);
-	return (0);
-}
 
 int	parse_rgb(char *str, t_color *color)
 {
