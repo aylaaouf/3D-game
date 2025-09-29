@@ -14,6 +14,8 @@
 
 void	init_color(t_color *color, int r, int g, int b)
 {
+	if (!color)
+		return ;
 	color->r = r;
 	color->g = g;
 	color->b = b;
@@ -27,8 +29,6 @@ void	init_config(t_config *config)
 	config->ea = NULL;
 	config->f = NULL;
 	config->c = NULL;
-	init_color(&config->floor, 0, 0, 0);
-	init_color(&config->ceil, 0, 0, 0);
 }
 
 void	find_and_init_player(t_game *game)

@@ -135,6 +135,8 @@ typedef struct s_game
 	int			size_line;
 	int			endian;
 	t_img		*img;
+	t_color		floor;
+	t_color		ceil;
 }				t_game;
 
 typedef struct s_ray

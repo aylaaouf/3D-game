@@ -98,17 +98,22 @@ void	calculate_wall_distance(t_game *game, t_ray *ray)
 void	draw_ceiling_and_floor(t_game *game, int x, t_ray *ray)
 {
 	int	y;
+	int	ceil_color;
+	int	floor_color;
+
+	ceil_color = (game->ceil.r << 16) | (game->ceil.g << 8) | (game->ceil.b);
+	floor_color = (game->floor.r << 16) | (game->floor.g << 8) | (game->floor.b);
 
 	y = 0;
 	while (y < ray->draw_start)
 	{
-		put_pixel_img(game, x, y, 0x87CEEB);
+		put_pixel_img(game, x, y, ceil_color);
 		y++;
 	}
 	y = ray->draw_end + 1;
 	while (y < SCREEN_HEIGHT)
 	{
-		put_pixel_img(game, x, y, 0xFFFFFF);
+		put_pixel_img(game, x, y, floor_color);
 		y++;
 	}
 }
