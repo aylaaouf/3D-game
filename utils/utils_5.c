@@ -6,11 +6,17 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 11:32:26 by ayelasef          #+#    #+#             */
-/*   Updated: 2025/10/30 00:28:18 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/10/30 00:47:47 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+int	close_game(t_game *game)
+{
+	free_game_resources(game);
+	exit(0);
+}
 
 void	free_config(t_config *config)
 {

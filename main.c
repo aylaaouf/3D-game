@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 05:46:51 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/09/23 23:18:23 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/10/30 00:47:38 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,6 +60,7 @@ void	setup_hooks_and_loop(t_game *game)
 	mlx_hook(game->win, 2, 1L << 0, handle_key_press, game);
 	mlx_hook(game->win, 3, 1L << 1, handle_key_release, game);
 	mlx_hook(game->win, 6, 1L << 6, mouse_move, game);
+	mlx_hook(game->win, 17, 1L << 17, close_game, game);
 	mlx_loop(game->mlx);
 }
 
