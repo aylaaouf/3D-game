@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 05:53:14 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/09/26 06:00:27 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/10/30 00:02:49 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -200,6 +200,7 @@ int				count_map_lines(char *path);
 int				is_empty_line(char *line);
 int				is_player_char(char c);
 int				is_valid_char(char c);
+int				check_door_condition(t_game *g, int i, int j);
 char			**read_map(char *path);
 int				is_closed(t_game *game);
 int				ft_isdegit(char *str);

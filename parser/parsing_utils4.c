@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 17:38:44 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/09/26 05:59:31 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/10/30 00:03:38 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,9 @@ int	is_map_line(char *line)
 
 int	valid_door(t_game *game)
 {
-	int		i, (j);
+	int	i;
+	int	j;
+
 	i = 0;
 	game->map->height = ft_strlen_2d(game->map->map);
 	while (i < game->map->height)
@@ -49,16 +51,8 @@ int	valid_door(t_game *game)
 		game->map->last_width = ft_strlen(game->map->map[i]);
 		while (j < game->map->last_width)
 		{
-			if (game->map->map[i][j] == 'P')
-			{
-				if (game->map->map[i][j - 1] != '1' || game->map->map[i][j + 1] != '1')
-					return (1);
-				else if (game->map->map[i - 1][j] == '1' && game->map->map[i + 1][j] == '1'
-					&& game->map->map[i][j - 1] == '1' && game->map->map[i][j + 1] == '1')
-					return (1);
-				else if (game->map->map[i - 1][j] == '1' || game->map->map[i + 1][j] == '1')
-					return (1);
-			}
+			if (game->map->map[i][j] == 'P' && check_door_condition(game, i, j))
+				return (1);
 			j++;
 		}
 		i++;

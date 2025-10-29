@@ -6,11 +6,23 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 17:38:47 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/09/23 23:39:44 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/10/30 00:02:14 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "../cub3d.h"
+
+int	check_door_condition(t_game *g, int i, int j)
+{
+	if (g->map->map[i][j - 1] != '1' || g->map->map[i][j + 1] != '1')
+		return (1);
+	if (g->map->map[i - 1][j] == '1' && g->map->map[i + 1][j] == '1'
+		&& g->map->map[i][j - 1] == '1' && g->map->map[i][j + 1] == '1')
+		return (1);
+	if (g->map->map[i - 1][j] == '1' || g->map->map[i + 1][j] == '1')
+		return (1);
+	return (0);
+}
 
 static int	set_identifier(char **field, char *line, int offset)
 {

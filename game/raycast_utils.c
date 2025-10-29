@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/18 11:07:41 by ayelasef          #+#    #+#             */
-/*   Updated: 2025/09/23 23:14:32 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/10/30 00:05:34 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,9 +101,10 @@ void	draw_ceiling_and_floor(t_game *game, int x, t_ray *ray)
 	int	ceil_color;
 	int	floor_color;
 
-	ceil_color = (game->ceil.r << 16) | (game->ceil.g << 8) | (game->ceil.b);
-	floor_color = (game->floor.r << 16) | (game->floor.g << 8) | (game->floor.b);
-
+	ceil_color = (game->ceil.r << 16) | (game->ceil.g << 8)
+		| (game->ceil.b);
+	floor_color = (game->floor.r << 16) | (game->floor.g << 8)
+		| (game->floor.b);
 	y = 0;
 	while (y < ray->draw_start)
 	{
