@@ -95,6 +95,5 @@ int	init_game(int ac, char **av, t_game **game)
 	find_and_init_player(*game);
 	(*game)->floor = (*game)->config->floor;
 	(*game)->ceil = (*game)->config->ceil;
-
 	return (0);
 }

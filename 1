@@ -102,7 +102,7 @@ void	draw_ceiling_and_floor(t_game *game, int x, t_ray *ray)
 	int	floor_color;
 
 	ceil_color = (game->ceil.r << 16) | (game->ceil.g << 8) | (game->ceil.b);
-	floor_color = (game->floor.r << 16) | (game->floor.g << 8)
+	floor_color = (game->floor.r << 16) | (game->floor.g << 8) 
 		| (game->floor.b);
 	y = 0;
 	while (y < ray->draw_start)

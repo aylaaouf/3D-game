@@ -40,7 +40,7 @@ int	is_map_line(char *line)
 
 int	valid_door(t_game *game)
 {
-	int		i, (j);
+	int i, (j);
 	i = 0;
 	game->map->height = ft_strlen_2d(game->map->map);
 	while (i < game->map->height)
@@ -51,12 +51,15 @@ int	valid_door(t_game *game)
 		{
 			if (game->map->map[i][j] == 'P')
 			{
-				if (game->map->map[i][j - 1] != '1' || game->map->map[i][j + 1] != '1')
+				if (game->map->map[i][j - 1] != '1' || game->map->map[i][j
+					+ 1] != '1')
 					return (1);
-				else if (game->map->map[i - 1][j] == '1' && game->map->map[i + 1][j] == '1'
-					&& game->map->map[i][j - 1] == '1' && game->map->map[i][j + 1] == '1')
+				else if (game->map->map[i - 1][j] == '1' && game->map->map[i
+					+ 1][j] == '1' && game->map->map[i][j - 1] == '1'
+					&& game->map->map[i][j + 1] == '1')
 					return (1);
-				else if (game->map->map[i - 1][j] == '1' || game->map->map[i + 1][j] == '1')
+				else if (game->map->map[i - 1][j] == '1' || game->map->map[i
+					+ 1][j] == '1')
 					return (1);
 			}
 			j++;
