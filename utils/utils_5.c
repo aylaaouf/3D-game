@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 11:32:26 by ayelasef          #+#    #+#             */
-/*   Updated: 2025/11/03 17:10:40 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/11/03 18:13:47 by ayelasef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,23 +77,9 @@ void	free_game_resources(t_game *game)
 
 int	init_game(int ac, char **av, t_game **game)
 {
-	*game = malloc(sizeof(t_game));
+	*game = allocate_game();
 	if (!*game)
 		return (1);
-	ft_memset(*game, 0, sizeof(t_game));
-	(*game)->map = malloc(sizeof(t_map));
-	(*game)->config = malloc(sizeof(t_config));
-	if (!(*game)->map || !(*game)->config)
-	{
-		free((*game)->map);
-		free((*game)->config);
-		free(*game);
-		return (1);
-	}
-	ft_memset((*game)->map, 0, sizeof(t_map));
-	ft_memset((*game)->config, 0, sizeof(t_config));
-	init_config((*game)->config);
-	(*game)->prev_mouse_x = SCREEN_WIDTH / 2;
 	if (parser(ac, av, *game))
 	{
 		free_game_resources(*game);

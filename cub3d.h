@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 05:53:14 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/11/03 17:10:32 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/11/03 18:14:14 by ayelasef         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -233,6 +233,7 @@ void			free_hand_texture(t_game *game);
 void			free_door_texture(t_game *game);
 void			free_floor_texture(t_game *game);
 void			free_mlx(t_game *game);
+t_game			*allocate_game(void);
 // raycast
 void			put_pixel_img(t_game *game, int x, int y, int color);
 
