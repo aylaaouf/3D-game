@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 05:53:14 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/11/03 18:14:14 by ayelasef         ###   ########.fr       */
+/*   Updated: 2025/11/03 19:13:40 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@
 # define DUPLICATE_ID "Error\nDuplicate identifier found"
 # define MISSING_ID "Error\nOne or more required identifiers are missing"
 # define INVALID_CHAR_MAP "Error\nInvalid character detected in the map"
+# define OPEN_ERR "Error: Cannot open texture file"
 
 # define MOVE_STEP 0.1
 # define SCREEN_WIDTH 1920
@@ -210,6 +211,7 @@ int				should_skip_line(char *line);
 int				is_map_line(char *line);
 int				condition_b(t_game *game, int player);
 int				close_game(t_game *game);
+int				validate_texture_path(char *path);
 
 // utils
 char			*ft_strrchr(const char *s, int c);
