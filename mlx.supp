@@ -1,0 +1,12 @@
+{
+   MLX_X11_Leak
+   Memcheck:Leak
+   ...
+   fun:mlx_init
+}
+{
+   X11_Display_Leak  
+   Memcheck:Leak
+   ...
+   fun:XOpenDisplay
+}
