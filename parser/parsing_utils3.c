@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 17:38:47 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/11/03 19:08:11 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/11/03 19:21:14 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int	check_door_condition(t_game *g, int i, int j)
 	return (0);
 }
 
-static int	set_identifier(char **field, char *line, int offset, int is_texture)
+int	set_identifier(char **field, char *line, int offset, int is_texture)
 {
 	char	*path;
 
@@ -50,23 +50,15 @@ static int	process_identifier(char *line, t_game *game, int *flag)
 	newline = ft_strrchr(line, '\n');
 	if (newline)
 		*newline = '\0';
-	result = 0;
-	if (!ft_strncmp(line, "NO ", 3))
-		result = set_identifier(&game->config->no, line, 3, 1);
-	else if (!ft_strncmp(line, "SO ", 3))
-		result = set_identifier(&game->config->so, line, 3, 1);
-	else if (!ft_strncmp(line, "WE ", 3))
-		result = set_identifier(&game->config->we, line, 3, 1);
-	else if (!ft_strncmp(line, "EA ", 3))
-		result = set_identifier(&game->config->ea, line, 3, 1);
-	else if (!ft_strncmp(line, "F ", 2))
-		result = set_identifier(&game->config->f, line, 2, 0);
-	else if (!ft_strncmp(line, "C ", 2))
-		result = set_identifier(&game->config->c, line, 2, 0);
-	else if (!ft_strncmp(line, "1", 1))
-		return (0);
-	else
+	result = handle_texture_identifiers(line, game);
+	if (result == -1)
+		result = handle_color_identifiers(line, game);
+	if (result == -1)
+	{
+		if (!ft_strncmp(line, "1", 1))
+			return (0);
 		return (ft_putendl_fd(INVALID_CHAR_MAP, 2), 1);
+	}
 	if (result == 0)
 		return (1);
 	*flag += result;

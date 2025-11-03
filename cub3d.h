@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 05:53:14 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/11/03 19:13:40 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/11/03 19:24:19 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -206,12 +206,16 @@ char			**read_map(char *path);
 int				is_closed(t_game *game);
 int				ft_isdegit(char *str);
 int				parse_identifiers(int fd, t_game *game);
+int				set_identifier(char **field, char *line,
+					int offset, int is_texture);
+int				validate_texture_path(char *path);
+int				handle_texture_identifiers(char *line, t_game *game);
+int				handle_color_identifiers(char *line, t_game *game);
 int				player_error(int player);
 int				should_skip_line(char *line);
 int				is_map_line(char *line);
 int				condition_b(t_game *game, int player);
 int				close_game(t_game *game);
-int				validate_texture_path(char *path);
 
 // utils
 char			*ft_strrchr(const char *s, int c);
