@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ayelasef <ayelasef@1337.ma>                +#+  +:+       +#+        */
+/*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/29 11:05:50 by ayelasef          #+#    #+#             */
-/*   Updated: 2025/09/18 11:47:58 by ayelasef         ###   ########.fr       */
+/*   Updated: 2025/11/03 17:10:31 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	init_config(t_config *config)
 	config->c = NULL;
 }
 
-void	find_and_init_player(t_game *game)
+int	find_and_init_player(t_game *game)
 {
 	int		y;
 	int		x;
@@ -48,14 +48,14 @@ void	find_and_init_player(t_game *game)
 			{
 				init_player(&game->player, x, y, tile);
 				game->map->map[y][x] = '0';
-				return ;
+				return (0);
 			}
 			x++;
 		}
 		y++;
 	}
 	ft_putendl_fd("Error: Player not found in map!\n", 2);
-	exit(1);
+	return (1);
 }
 
 void	init_player_help(t_player *player, char dir)

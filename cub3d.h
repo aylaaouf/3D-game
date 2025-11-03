@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/21 05:53:14 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/10/30 00:48:08 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/11/03 17:10:32 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -190,7 +190,7 @@ typedef struct s_pixel_texture
 // init
 int				rgb(int r, int g, int b);
 void			init_color(t_color *color, int r, int g, int b);
-void			find_and_init_player(t_game *game);
+int				find_and_init_player(t_game *game);
 void			init_player(t_player *player, int x, int y, char dir);
 void			init_config(t_config *config);
 // parsing

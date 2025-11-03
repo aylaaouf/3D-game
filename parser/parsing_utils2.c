@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/07/28 17:20:45 by aylaaouf          #+#    #+#             */
-/*   Updated: 2025/09/22 15:15:53 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/11/03 17:10:31 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,6 @@ static int	read_map_loop(int fd, char **map)
 	{
 		if (process_map_line(line, map, &i, &map_started))
 		{
-			free_2d(map);
 			get_next_line(-1);
 			close(fd);
 			return (1);

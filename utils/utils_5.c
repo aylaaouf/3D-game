@@ -6,7 +6,7 @@
 /*   By: aylaaouf <aylaaouf@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2025/09/22 11:32:26 by ayelasef          #+#    #+#             */
-/*   Updated: 2025/10/30 00:47:47 by aylaaouf         ###   ########.fr       */
+/*   Updated: 2025/11/03 17:10:40 by aylaaouf         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,8 +95,17 @@ int	init_game(int ac, char **av, t_game **game)
 	init_config((*game)->config);
 	(*game)->prev_mouse_x = SCREEN_WIDTH / 2;
 	if (parser(ac, av, *game))
-		return (free_game_resources(*game), 1);
-	find_and_init_player(*game);
+	{
+		free_game_resources(*game);
+		*game = NULL;
+		return (1);
+	}
+	if (find_and_init_player(*game))
+	{
+		free_game_resources(*game);
+		*game = NULL;
+		return (1);
+	}
 	(*game)->floor = (*game)->config->floor;
 	(*game)->ceil = (*game)->config->ceil;
 	return (0);
