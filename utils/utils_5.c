@@ -71,6 +71,7 @@ void	free_game_resources(t_game *game)
 		free_map(game->map);
 		free(game->map);
 	}
+	free_mlx(game);
 	free(game);
 }
 

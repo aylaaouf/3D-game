@@ -58,3 +58,12 @@ void	free_floor_texture(t_game *game)
 		free(game->floor_texture);
 	}
 }
+
+void	free_mlx(t_game *game)
+{
+	if (game->mlx)
+	{
+		mlx_destroy_display(game->mlx);
+		free(game->mlx);
+	}
+}
